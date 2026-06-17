@@ -89,13 +89,21 @@ button {
   color: #fff;
 }
 
-.hero-sticky {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.hero-stage {
+  --hero-scroll-zone: 400px;
+  position: relative;
   z-index: 1;
+  height: calc(100vh + var(--hero-scroll-zone));
+}
+
+.hero-sticky {
+  --announcement-height: 0px;
+  position: sticky;
+  top: 0;
+  height: calc(100vh - var(--announcement-height));
+  min-height: 560px;
+  z-index: 1;
+  overflow: hidden;
 }
 
 #bgvid {
@@ -317,16 +325,9 @@ nav {
   50% { transform: translateY(7px); }
 }
 
-#hero-spacer {
-  height: 400px;
-  position: relative;
-  z-index: 0;
-}
-
 #page-below {
   position: relative;
   z-index: 50;
-  margin-top: 100vh;
 }
 
 .bottom-bar {
@@ -440,12 +441,14 @@ nav {
 }
 
 .chapters-sidebar {
+  --chapter-progress: 0%;
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   max-height: 600px;
   overflow-y: auto;
-  padding-right: 12px;
+  padding: 4px 12px 4px 0;
 }
 
 .chapters-sidebar::-webkit-scrollbar {
@@ -467,9 +470,9 @@ nav {
 
 .chapter-item {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   cursor: pointer;
-  padding: 12px;
+  padding: 14px 12px;
   border-radius: 8px;
   transition: background .15s, transform .15s;
   position: relative;
@@ -477,6 +480,7 @@ nav {
   background: transparent;
   color: inherit;
   text-align: left;
+  z-index: 1;
 }
 
 .chapter-item:hover {
@@ -488,17 +492,42 @@ nav {
   background: rgba(255,255,255,.15);
 }
 
-.chapter-marker {
+.chapters-track {
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 13px;
   width: 3px;
-  height: 60px;
-  background: rgba(255,255,255,.3);
-  border-radius: 2px;
+  background: rgba(255,255,255,.14);
+  border-radius: 999px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.chapters-track-fill {
+  width: 100%;
+  height: var(--chapter-progress);
+  background: #fff;
+  border-radius: inherit;
+  box-shadow: 0 0 16px rgba(255,255,255,.35);
+  transition: height .12s linear;
+}
+
+.chapter-marker {
+  width: 10px;
+  height: 10px;
+  margin-top: 4px;
+  background: #252525;
+  border: 2px solid rgba(255,255,255,.32);
+  border-radius: 50%;
   flex-shrink: 0;
+  box-shadow: 0 0 0 5px #0d0d0d;
 }
 
 .chapter-item.active .chapter-marker {
   background: #fff;
-  box-shadow: 0 0 12px rgba(255,255,255,.4);
+  border-color: #fff;
+  box-shadow: 0 0 0 5px #0d0d0d, 0 0 14px rgba(255,255,255,.55);
 }
 
 .chapter-content {
@@ -549,8 +578,6 @@ nav {
 
   .chapters-sidebar {
     max-height: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 12px;
   }
 }
@@ -609,6 +636,6 @@ nav {
   }
 
   .chapters-sidebar {
-    grid-template-columns: 1fr;
+    padding-right: 0;
   }
 }

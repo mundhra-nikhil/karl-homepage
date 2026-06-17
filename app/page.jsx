@@ -3,11 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 
 const chapters = [
-  { timestamp: 0, title: "Introduction", description: "Get started with Karl" },
-  { timestamp: 45, title: "Data Connection", description: "Connect your data sources" },
-  { timestamp: 92, title: "Query Builder", description: "Build natural language queries" },
-  { timestamp: 138, title: "Results & Insights", description: "Visualize your data instantly" },
-  { timestamp: 185, title: "Advanced Features", description: "Explore more capabilities" }
+  { timestamp: 0, title: "Connect to data source", description: "0:00 - 0:10" },
+  { timestamp: 10, title: "Knowledge graphs", description: "0:10 - 0:20" },
+  { timestamp: 20, title: "Telemetry insights", description: "0:20 - 0:28" },
+  { timestamp: 28, title: "Prompting to Karl", description: "0:28 - end" }
 ];
 
 export default function Home() {
@@ -20,7 +19,7 @@ export default function Home() {
   const overlayExtraRef = useRef(null);
   const heroContentRef = useRef(null);
   const scrollHintRef = useRef(null);
-  const spacerRef = useRef(null);
+  const heroStageRef = useRef(null);
   const dotRef = useRef(null);
   const ringRef = useRef(null);
   const demoVideoRef = useRef(null);
@@ -30,7 +29,7 @@ export default function Home() {
     const adjustHero = () => {
       if (!heroRef.current) return;
       const barHeight = showAnnouncement ? barRef.current?.offsetHeight || 0 : 0;
-      heroRef.current.style.top = `${barHeight}px`;
+      heroRef.current.style.setProperty("--announcement-height", `${barHeight}px`);
     };
 
     adjustHero();
@@ -115,8 +114,8 @@ export default function Home() {
       if (scrollHintRef.current) {
         scrollHintRef.current.style.opacity = Math.max(0, 1 - progress * 1.5);
       }
-      if (spacerRef.current) {
-        spacerRef.current.style.height = `${scrollZone}px`;
+      if (heroStageRef.current) {
+        heroStageRef.current.style.setProperty("--hero-scroll-zone", `${scrollZone}px`);
       }
     };
 
@@ -188,55 +187,55 @@ export default function Home() {
         </div>
       )}
 
-      <div className="hero-sticky" ref={heroRef}>
-        <video id="bgvid" ref={bgVideoRef} autoPlay muted loop playsInline>
-          <source src="/full-bg-video.mp4" type="video/mp4" />
-        </video>
+      <div className="hero-stage" ref={heroStageRef}>
+        <div className="hero-sticky" ref={heroRef}>
+          <video id="bgvid" ref={bgVideoRef} autoPlay muted loop playsInline>
+            <source src="/full-bg-video.mp4" type="video/mp4" />
+          </video>
 
-        <div id="overlay" />
-        <div id="overlay-extra" ref={overlayExtraRef} />
+          <div id="overlay" />
+          <div id="overlay-extra" ref={overlayExtraRef} />
 
-        <nav>
-          <a href="#" className="nav-logo">
-            <div className="logomark">K</div>
-            <span className="wordmark">Karl</span>
-          </a>
-          <ul className="nav-links">
-            <li><a href="#">Platform</a></li>
-            <li><a href="#">Solutions</a></li>
-            <li><a href="#">Security</a></li>
-            <li><a href="#">Resources</a></li>
-            <li><a href="#">About</a></li>
-          </ul>
-          <div className="nav-right">
-            <a href="#" className="n-login">Login v</a>
-            <a href="#" className="n-demo">Request a Demo</a>
+          <nav>
+            <a href="#" className="nav-logo">
+              <div className="logomark">K</div>
+              <span className="wordmark">Karl</span>
+            </a>
+            <ul className="nav-links">
+              <li><a href="#">Platform</a></li>
+              <li><a href="#">Solutions</a></li>
+              <li><a href="#">Security</a></li>
+              <li><a href="#">Resources</a></li>
+              <li><a href="#">About</a></li>
+            </ul>
+            <div className="nav-right">
+              <a href="#" className="n-login">Login v</a>
+              <a href="#" className="n-demo">Request a Demo</a>
+            </div>
+          </nav>
+
+          <div id="hero-content" ref={heroContentRef}>
+            <h1 className="hero-h1">
+              Your Data Team,<br />On Demand.
+            </h1>
+            <p className="hero-sub">
+              The most successful enterprises don&apos;t wait for insight - they demand it.
+              Karl puts the full power of your data in every leader&apos;s hands, instantly.
+              No analysts. No dashboards. Just answers, the moment you need them.
+            </p>
+            <a href="#" className="hero-cta">Request a Demo</a>
           </div>
-        </nav>
 
-        <div id="hero-content" ref={heroContentRef}>
-          <h1 className="hero-h1">
-            Your Data Team,<br />On Demand.
-          </h1>
-          <p className="hero-sub">
-            The most successful enterprises don&apos;t wait for insight - they demand it.
-            Karl puts the full power of your data in every leader&apos;s hands, instantly.
-            No analysts. No dashboards. Just answers, the moment you need them.
-          </p>
-          <a href="#" className="hero-cta">Request a Demo</a>
-        </div>
-
-        <div id="scroll-hint" ref={scrollHintRef}>
-          <div className="scroll-chevron">
-            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M3 6l5 5 5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+          <div id="scroll-hint" ref={scrollHintRef}>
+            <div className="scroll-chevron">
+              <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M3 6l5 5 5-5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <span>Scroll</span>
           </div>
-          <span>Scroll</span>
         </div>
       </div>
-
-      <div id="hero-spacer" ref={spacerRef} />
 
       <div id="page-below">
         <div className="bottom-bar">
@@ -271,7 +270,11 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="chapters-sidebar">
+          <div className="chapters-sidebar" style={{ "--chapter-progress": `${videoProgress}%` }}>
+            <div className="chapters-track" aria-hidden="true">
+              <div className="chapters-track-fill" />
+            </div>
+
             {chapters.map((chapter, index) => (
               <button
                 className={`chapter-item${activeChapter === index ? " active" : ""}`}
@@ -279,7 +282,7 @@ export default function Home() {
                 type="button"
                 onClick={() => seekToChapter(chapter.timestamp, index)}
               >
-                <span className="chapter-marker" />
+                <span className="chapter-marker" aria-hidden="true" />
                 <span className="chapter-content">
                   <span className="chapter-title">{chapter.title}</span>
                   <span className="chapter-description">{chapter.description}</span>
