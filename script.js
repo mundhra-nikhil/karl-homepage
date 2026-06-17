@@ -109,9 +109,65 @@ function initAnnounceBar() {
   }
 }
 
+// ── VIDEO SECTION ──
+function initVideoSection() {
+  const video = document.getElementById('demo-video');
+  const progressBar = document.getElementById('progress-bar');
+  const chapterItems = document.querySelectorAll('.chapter-item');
+  
+  if (!video) return;
+
+  // Update progress bar as video plays
+  video.addEventListener('timeupdate', () => {
+    if (video.duration) {
+      const progress = (video.currentTime / video.duration) * 100;
+      progressBar.style.width = progress + '%';
+      
+      // Update active chapter based on current time
+      updateActiveChapter(video.currentTime);
+    }
+  });
+
+  // Click on progress bar to seek
+  const progressContainer = document.querySelector('.video-progress');
+  progressContainer.addEventListener('click', (e) => {
+    if (video.duration) {
+      const rect = progressContainer.getBoundingClientRect();
+      const percent = (e.clientX - rect.left) / rect.width;
+      video.currentTime = percent * video.duration;
+    }
+  });
+
+  // Chapter item clicks
+  chapterItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const timestamp = parseFloat(item.dataset.timestamp);
+      video.currentTime = timestamp;
+      item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  });
+
+  function updateActiveChapter(currentTime) {
+    let activeChapter = null;
+    
+    chapterItems.forEach(item => {
+      const timestamp = parseFloat(item.dataset.timestamp);
+      if (timestamp <= currentTime) {
+        activeChapter = item;
+      }
+    });
+
+    chapterItems.forEach(item => item.classList.remove('active'));
+    if (activeChapter) {
+      activeChapter.classList.add('active');
+    }
+  }
+}
+
 // ── INITIALIZE ON DOM READY ──
 document.addEventListener('DOMContentLoaded', () => {
   initCursor();
   initScrollEffect();
   initAnnounceBar();
+  initVideoSection();
 });
