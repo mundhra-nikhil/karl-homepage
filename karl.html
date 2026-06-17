@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karl — Insight Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: auto; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      cursor: none;
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    #cur-dot {
+      position: fixed;
+      width: 7px; height: 7px;
+      background: #fff;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%,-50%);
+    }
+    #cur-ring {
+      position: fixed;
+      width: 28px; height: 28px;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: width .2s, height .2s;
+    }
+    #cur-ring.big { width: 50px; height: 50px; }
+
+    /* ── ANNOUNCE BAR ── */
+    #abar {
+      position: relative;
+      z-index: 300;
+      background: #111;
+      border-bottom: 1px solid #222;
+      text-align: center;
+      padding: 9px 48px;
+      font-size: 13px;
+      color: #777;
+    }
+    #abar a { color: #ccc; font-weight: 600; margin-left: 6px; text-decoration: none; }
+    #abar a:hover { color: #fff; }
+    .aclose {
+      position: absolute; right: 18px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px; color: #444; cursor: pointer; padding: 4px 8px;
+      transition: color .15s;
+    }
+    .aclose:hover { color: #fff; }
+
+    /* ── STICKY HERO WRAPPER ── */
+    /*
+      The trick:
+      - .hero-sticky is position:fixed so video never moves
+      - .hero-spacer creates scroll height
+      - JS reads scroll progress within the spacer
+    */
+
+    .hero-sticky {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 1;
+    }
+
+    /* ── VIDEO BG ── */
+    /*
+      =====================================================
+      TO ADD YOUR VIDEO:
+      Replace <div class="vid-placeholder"> with:
+
+      <video id="bgvid" autoplay muted loop playsinline>
+        <source src="YOUR_VIDEO.mp4" type="video/mp4" />
+      </video>
+
+      The CSS below targets #bgvid — it will work automatically.
+      =====================================================
+    */
+
+    .vid-placeholder,
+    #bgvid {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      /* NO filter here — JS controls it */
+    }
+
+    .vid-placeholder {
+      /* Placeholder gradient until real video is added */
+      background:
+        radial-gradient(ellipse 60% 70% at 60% 45%,
+          rgba(40,30,80,0.7) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 50% at 30% 60%,
+          rgba(20,15,50,0.5) 0%, transparent 60%),
+        linear-gradient(160deg,#0f0a1a 0%,#1c1030 40%,#080810 100%);
+      animation: vidPulse 6s ease-in-out infinite;
+    }
+
+    /* placeholder label so you know where to swap */
+    .vid-placeholder::after {
+      content: '▶  Place your MP4 video here — see HTML comment above';
+      position: absolute;
+      bottom: 50%; left: 50%;
+      transform: translate(-50%, 50%);
+      font-size: 12px;
+      color: rgba(255,255,255,0.15);
+      font-family: monospace;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    @keyframes vidPulse {
+      0%,100% { opacity:1; }
+      50% { opacity:.82; }
+    }
+
+    /* ── DARK OVERLAY — JS controls opacity ── */
+    #overlay {
+      position: absolute;
+      inset: 0;
+      /* base overlay — lighter so video is more visible */
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.3) 0%,
+        rgba(0,0,0,0.1) 55%,
+        rgba(0,0,0,0.02) 100%
+      );
+      z-index: 2;
+      /* JS will add an extra rgba layer via opacity on #overlay-extra */
+    }
+
+    /* extra overlay for scroll-driven darkening */
+    #overlay-extra {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 3;
+      opacity: 0; /* starts invisible, JS drives to 1 */
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 68px;
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 9px;
+      text-decoration: none;
+    }
+    .logomark {
+      width: 30px; height: 30px;
+      background: #fff; border-radius: 6px;
+      display: grid; place-items: center;
+      font-size: 13px; font-weight: 900; color: #000;
+    }
+    .wordmark { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: -.3px; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+      list-style: none;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .nav-links a {
+      font-size: 14px; font-weight: 500;
+      color: rgba(255,255,255,.7);
+      text-decoration: none;
+      padding: 6px 14px; border-radius: 6px;
+      transition: color .15s, background .15s;
+    }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,.07); }
+
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+    .n-login {
+      font-size: 13.5px; font-weight: 600; color: #fff;
+      border: 1px solid rgba(255,255,255,.3);
+      padding: 8px 18px; border-radius: 6px;
+      text-decoration: none;
+      transition: background .15s, border-color .15s;
+    }
+    .n-login:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.6); }
+    .n-demo {
+      font-size: 13.5px; font-weight: 600; color: #000;
+      background: #fff; padding: 8px 18px; border-radius: 6px;
+      text-decoration: none;
+      transition: background .15s, transform .1s;
+    }
+    .n-demo:hover { background: #e8e8e8; transform: translateY(-1px); }
+
+    /* ── HERO CONTENT — starts hidden, JS fades in ── */
+    #hero-content {
+      position: absolute;
+      bottom: 88px; left: 80px;
+      max-width: 620px;
+      z-index: 8;
+      opacity: 0;           /* HIDDEN on load */
+      transform: translateY(28px);
+      /* NO css transition — JS drives this directly */
+    }
+
+    .hero-h1 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(52px, 5.5vw, 74px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -2px;
+    }
+
+    .hero-sub {
+      font-size: 17px; font-weight: 400;
+      color: rgba(255,255,255,.62);
+      line-height: 1.65;
+      max-width: 500px;
+      margin-top: 20px;
+    }
+
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 36px;
+      font-size: 15px; font-weight: 600;
+      color: #000; background: #fff;
+      padding: 14px 30px; border-radius: 7px;
+      text-decoration: none;
+      transition: background .15s, transform .15s, box-shadow .15s;
+    }
+    .hero-cta:hover {
+      background: #eee;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+    }
+
+    /* ── SCROLL INDICATOR ── */
+    #scroll-hint {
+      position: absolute;
+      bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 8;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      opacity: 1; /* JS fades this out */
+    }
+    #scroll-hint span {
+      font-size: 10px; font-weight: 500;
+      color: rgba(255,255,255,.4);
+      text-transform: uppercase; letter-spacing: 1.5px;
+    }
+    .scroll-chevron {
+      width: 20px; height: 20px;
+      display: grid; place-items: center;
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+    .scroll-chevron svg { width: 16px; height: 16px; opacity: .5; }
+
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(7px); }
+    }
+
+    /* ── SPACER — creates scroll room ── */
+    /*
+      The hero-sticky is fixed so it doesn't scroll.
+      This spacer sits behind it and gives the page scroll height.
+      280px scroll distance = full effect plays out.
+    */
+    #hero-spacer {
+      height: 280px; /* scroll zone for the effect */
+      position: relative;
+      z-index: 0;
+    }
+
+    /* ── ANNOUNCE BAR WRAPPER — sits above fixed hero ── */
+    #abar-wrap {
+      position: relative;
+      z-index: 200;
+    }
+
+    /* ── PAGE CONTENT BELOW HERO ── */
+    /*
+      Everything below .hero-spacer scrolls normally.
+      Give it a top margin equal to 100vh so it starts
+      below the fixed hero.
+    */
+    #page-below {
+      position: relative;
+      z-index: 50;
+      margin-top: 100vh;
+    }
+
+    /* ── BOTTOM INDUSTRY BAR ── */
+    .bottom-bar {
+      background: #0d0d0d;
+      border-top: 1px solid #1e1e1e;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 0 48px; height: 58px;
+    }
+    .bb-left { display: flex; align-items: center; gap: 32px; }
+    .bb-label { font-size: 12px; color: #444; font-weight: 500; white-space: nowrap; }
+    .industries { display: flex; align-items: center; gap: 24px; }
+    .industry {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: #555; font-weight: 500;
+      transition: color .15s; cursor: default;
+    }
+    .industry:hover { color: #ccc; }
+    .bb-right a {
+      font-size: 12px; font-weight: 500; color: #444;
+      text-decoration: none;
+      border: 1px solid #2a2a2a;
+      padding: 6px 14px; border-radius: 5px;
+      transition: color .15s, border-color .15s;
+    }
+    .bb-right a:hover { color: #fff; border-color: #555; }
+
+    /* ── NEXT SECTION PLACEHOLDER ── */
+    .next-section {
+      background: #fcfcfc;
+      min-height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; color: #999;
+      border-top: 1px solid #e5e5e5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom cursor -->
+  <div id="cur-dot"></div>
+  <div id="cur-ring"></div>
+
+  <!-- Announce bar — ABOVE the fixed hero -->
+  <div id="abar-wrap">
+    <div id="abar">
+      Karl is now available on Microsoft Fabric Marketplace
+      <a href="#">Learn more →</a>
+      <span class="aclose" onclick="document.getElementById('abar-wrap').style.display='none'; adjustHero();">✕</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       FIXED HERO — stays in place while page scrolls
+       ============================================================ -->
+  <div class="hero-sticky">
+
+   
+      <video id="bgvid" autoplay muted loop playsinline>
+        <source src="full bg video.mp4" type="video/mp4" />
+      </video>
+
+     
+
+    <!-- Base gradient overlay -->
+    <div id="overlay"></div>
+
+    <!-- Scroll-driven darkening layer -->
+    <div id="overlay-extra"></div>
+
+    <!-- Nav -->
+    <nav>
+      <a href="#" class="nav-logo">
+        <div class="logomark">K</div>
+        <span class="wordmark">Karl</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#">Platform</a></li>
+        <li><a href="#">Solutions</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">Resources</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="#" class="n-login">Login ↓</a>
+        <a href="#" class="n-demo">Request a Demo</a>
+      </div>
+    </nav>
+
+    <!-- Hero copy — hidden until scroll -->
+    <div id="hero-content">
+      <h1 class="hero-h1">
+        Your Data Team,<br/>On Demand.
+      </h1>
+      <p class="hero-sub">
+        The most successful enterprises don't wait for insight — they demand it. Karl puts the full power of your data in every leader's hands, instantly. No analysts. No dashboards. Just answers, the moment you need them.
+      </p>
+      <a href="#" class="hero-cta">Request a Demo</a>
+    </div>
+
+    <!-- Scroll indicator — fades out as you scroll -->
+    <div id="scroll-hint">
+      <div class="scroll-chevron">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 6l5 5 5-5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span>Scroll</span>
+    </div>
+
+  </div>
+
+  <!-- Spacer that creates scroll distance for the effect -->
+  <div id="hero-spacer"></div>
+
+  <!-- Everything below the hero -->
+  <div id="page-below">
+    <div class="bottom-bar">
+      <div class="bb-left">
+        <span class="bb-label">Built for enterprise teams in:</span>
+        <div class="industries">
+          <div class="industry">🏭 Manufacturing</div>
+          <div class="industry">🛒 Retail</div>
+          <div class="industry">💊 Pharma</div>
+          <div class="industry">📊 Financial Services</div>
+        </div>
+      </div>
+      <div class="bb-right">
+        <a href="#">See how it works →</a>
+      </div>
+    </div>
+
+    <!-- Next section starts here -->
+    <div class="next-section">
+      ↓ Demo section goes here
+    </div>
+  </div>
+
+  <script>
+    // ── ADJUST HERO FOR ANNOUNCE BAR ──
+    function adjustHero() {
+      const abarH = document.getElementById('abar-wrap').offsetHeight;
+      document.querySelector('.hero-sticky').style.top = abarH + 'px';
+    }
+    adjustHero();
+    window.addEventListener('resize', adjustHero);
+
+    // ── CURSOR ──
+    const dot  = document.getElementById('cur-dot');
+    const ring = document.getElementById('cur-ring');
+    let mx=0,my=0,dx=0,dy=0,rx=0,ry=0;
+    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+    (function cursorLoop(){
+      dx += (mx-dx)*0.18; dy += (my-dy)*0.18;
+      rx += (mx-rx)*0.07; ry += (my-ry)*0.07;
+      dot.style.left  = dx+'px'; dot.style.top  = dy+'px';
+      ring.style.left = rx+'px'; ring.style.top = ry+'px';
+      requestAnimationFrame(cursorLoop);
+    })();
+    document.querySelectorAll('a,button,.aclose').forEach(el=>{
+      el.addEventListener('mouseenter',()=>ring.classList.add('big'));
+      el.addEventListener('mouseleave',()=>ring.classList.remove('big'));
+    });
+
+    // ── SCROLL EFFECT ──
+    const vidEl      = document.getElementById('bgvid');
+    const overlayX   = document.getElementById('overlay-extra');
+    const heroContent= document.getElementById('hero-content');
+    const scrollHint = document.getElementById('scroll-hint');
+    const abarWrap   = document.getElementById('abar-wrap');
+
+    // How many pixels of scroll = full effect (0→1) - increased for slower scroll
+    const SCROLL_ZONE = 400;
+
+    function ease(t){ return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2; }
+
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    });
+
+    function update(){
+      ticking = false;
+
+      // scrollY relative to where the spacer starts
+      // abar is ~38px, hero is fixed so scroll starts from 0
+      const raw      = window.scrollY;
+      const progress = Math.min(raw / SCROLL_ZONE, 1); // 0→1
+      const eased    = ease(progress);
+
+      // 1. Blur the video: 0px → 5px (reduced for subtler effect)
+      const blurVal = eased * 5;
+      vidEl.style.filter = `blur(${blurVal}px)`;
+
+      // 2. Darken overlay: opacity 0 → 0.8
+      overlayX.style.opacity = eased * 0.8;
+
+      // 3. Fade IN hero content: opacity 0→1, translateY 28→0 (slower appearance)
+      const textProgress = eased * eased * eased; // Cubic easing for slower start
+      heroContent.style.opacity   = textProgress;
+      heroContent.style.transform = `translateY(${28 - textProgress*28}px)`;
+
+      // 4. Fade OUT scroll hint (slower fade)
+      scrollHint.style.opacity = Math.max(0, 1 - progress * 1.5);
+    }
+
+    // ── SPACER HEIGHT = viewport - annoucebar so scroll zone fits ──
+    function setSpacerHeight(){
+      const abarH = abarWrap.offsetHeight || 38;
+      // spacer makes body tall enough to scroll SCROLL_ZONE px
+      // page-below starts at 100vh - abarH below
+      const spacerHeight = SCROLL_ZONE + 'px';
+      document.getElementById('hero-spacer').style.height = spacerHeight;
+      console.log('Spacer height set to:', spacerHeight);
+    }
+    setSpacerHeight();
+    window.addEventListener('resize', setSpacerHeight);
+
+    // run once on load in case page is pre-scrolled
+    update();
+  </script>
+</body>
+</html>
