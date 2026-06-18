@@ -402,7 +402,7 @@ nav {
   display: grid;
   grid-template-columns: 1fr 320px;
   gap: 40px;
-  align-items: start;
+  align-items: stretch;
   min-height: 600px;
 }
 
@@ -441,11 +441,14 @@ nav {
 }
 
 .chapters-sidebar {
-  --chapter-progress: 0%;
+  --chapter-progress: 0px;
+  --chapter-track-top: 20px;
+  --chapter-track-bottom: 20px;
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0;
+  min-height: 0;
   max-height: 600px;
   overflow-y: auto;
   padding: 4px 12px 4px 0;
@@ -471,6 +474,9 @@ nav {
 .chapter-item {
   display: flex;
   gap: 14px;
+  flex: var(--chapter-duration, 1) 1 0;
+  min-height: 76px;
+  align-items: flex-start;
   cursor: pointer;
   padding: 14px 12px;
   border-radius: 8px;
@@ -494,8 +500,8 @@ nav {
 
 .chapters-track {
   position: absolute;
-  top: 20px;
-  bottom: 20px;
+  top: var(--chapter-track-top);
+  bottom: var(--chapter-track-bottom);
   left: 13px;
   width: 3px;
   background: rgba(255,255,255,.14);
@@ -578,7 +584,6 @@ nav {
 
   .chapters-sidebar {
     max-height: none;
-    gap: 12px;
   }
 }
 
