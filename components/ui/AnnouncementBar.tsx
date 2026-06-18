@@ -1,0 +1,36 @@
+"use client";
+import { forwardRef } from "react";
+
+interface AnnouncementBarProps {
+  /** Called when the user clicks the close button. */
+  onClose: () => void;
+}
+
+/**
+ * AnnouncementBar — dismissible top banner.
+ *
+ * Uses forwardRef so the parent can hold a ref to the wrapper element and
+ * measure its height for the hero sticky offset calculation.
+ */
+const AnnouncementBar = forwardRef<HTMLDivElement, AnnouncementBarProps>(
+  function AnnouncementBar({ onClose }, ref) {
+    return (
+      <div id="abar-wrap" ref={ref}>
+        <div id="abar">
+          Karl is now available on Microsoft Fabric Marketplace
+          <a href="#">Learn more -&gt;</a>
+          <button
+            className="aclose"
+            type="button"
+            aria-label="Close announcement"
+            onClick={onClose}
+          >
+            x
+          </button>
+        </div>
+      </div>
+    );
+  }
+);
+
+export default AnnouncementBar;
