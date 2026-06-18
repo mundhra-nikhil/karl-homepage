@@ -441,9 +441,6 @@ nav {
 }
 
 .chapters-sidebar {
-  --chapter-progress: 0px;
-  --chapter-track-top: 20px;
-  --chapter-track-bottom: 20px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -472,6 +469,7 @@ nav {
 }
 
 .chapter-item {
+  --chapter-marker-center: 23px;
   display: flex;
   gap: 14px;
   flex: var(--chapter-duration, 1) 1 0;
@@ -486,7 +484,7 @@ nav {
   background: transparent;
   color: inherit;
   text-align: left;
-  z-index: 1;
+  overflow: visible;
 }
 
 .chapter-item:hover {
@@ -498,21 +496,23 @@ nav {
   background: rgba(255,255,255,.15);
 }
 
-.chapters-track {
+.chapter-line {
   position: absolute;
-  top: var(--chapter-track-top);
-  bottom: var(--chapter-track-bottom);
-  left: 13px;
+  top: var(--chapter-marker-center);
+  bottom: calc(var(--chapter-marker-center) * -1);
+  left: 16px;
   width: 3px;
   background: rgba(255,255,255,.14);
   border-radius: 999px;
   overflow: hidden;
   pointer-events: none;
+  z-index: 3;
 }
 
-.chapters-track-fill {
+.chapter-line-fill {
+  display: block;
   width: 100%;
-  height: var(--chapter-progress);
+  height: var(--chapter-segment-progress);
   background: #fff;
   border-radius: inherit;
   box-shadow: 0 0 16px rgba(255,255,255,.35);
@@ -520,6 +520,8 @@ nav {
 }
 
 .chapter-marker {
+  position: relative;
+  z-index: 4;
   width: 10px;
   height: 10px;
   margin-top: 4px;
@@ -537,6 +539,8 @@ nav {
 }
 
 .chapter-content {
+  position: relative;
+  z-index: 4;
   display: block;
 }
 

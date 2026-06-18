@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import IndustriesSection from "./components/IndustriesSection";
 
 const chapters = [
   { timestamp: 0, title: "Connect to data source", description: "0:00 - 0:10" },
@@ -13,7 +14,7 @@ export default function Home() {
   const [showAnnouncement, setShowAnnouncement] = useState(true);
   const [activeChapter, setActiveChapter] = useState(0);
   const [videoProgress, setVideoProgress] = useState(0);
-  const [chapterProgress, setChapterProgress] = useState(0);
+  const [videoTime, setVideoTime] = useState(0);
   const [videoDuration, setVideoDuration] = useState(0);
   const heroRef = useRef(null);
   const barRef = useRef(null);
@@ -26,43 +27,18 @@ export default function Home() {
   const ringRef = useRef(null);
   const demoVideoRef = useRef(null);
   const progressRef = useRef(null);
-  const chaptersSidebarRef = useRef(null);
-  const chapterMarkerRefs = useRef([]);
 
   const updateVideoState = (video) => {
     if (!video?.duration) return;
 
     const progress = Math.max(0, Math.min(1, video.currentTime / video.duration));
+    setVideoTime(video.currentTime);
     setVideoProgress(progress * 100);
 
     const nextActive = chapters.reduce((current, chapter, index) => {
       return chapter.timestamp <= video.currentTime ? index : current;
     }, 0);
     setActiveChapter(nextActive);
-
-    const sidebar = chaptersSidebarRef.current;
-    const markers = chapterMarkerRefs.current;
-    if (sidebar && markers.length === chapters.length && markers.every(Boolean)) {
-      const sidebarRect = sidebar.getBoundingClientRect();
-      const markerCenters = markers.map((marker) => {
-        const markerRect = marker.getBoundingClientRect();
-        return markerRect.top + markerRect.height / 2 - sidebarRect.top;
-      });
-
-      const firstCenter = markerCenters[0];
-      const lastCenter = markerCenters[markerCenters.length - 1];
-      const nextCenter = markerCenters[nextActive + 1] ?? lastCenter;
-      const currentCenter = markerCenters[nextActive];
-      const chapterStart = chapters[nextActive].timestamp;
-      const chapterEnd = chapters[nextActive + 1]?.timestamp ?? video.duration;
-      const chapterSpan = Math.max(chapterEnd - chapterStart, 1);
-      const chapterLocalProgress = Math.max(0, Math.min(1, (video.currentTime - chapterStart) / chapterSpan));
-      const fillEnd = currentCenter + (nextCenter - currentCenter) * chapterLocalProgress;
-
-      sidebar.style.setProperty("--chapter-track-top", `${firstCenter}px`);
-      sidebar.style.setProperty("--chapter-track-bottom", `${sidebarRect.height - lastCenter}px`);
-      setChapterProgress(Math.max(0, fillEnd - firstCenter));
-    }
   };
 
   useEffect(() => {
@@ -212,9 +188,12 @@ export default function Home() {
   const measuredDuration = videoDuration || fallbackDuration;
   const chapterSegments = chapters.map((chapter, index) => {
     const nextTimestamp = chapters[index + 1]?.timestamp ?? measuredDuration;
+    const duration = Math.max(nextTimestamp - chapter.timestamp, 1);
+    const elapsed = Math.max(0, Math.min(duration, videoTime - chapter.timestamp));
     return {
       ...chapter,
-      duration: Math.max(nextTimestamp - chapter.timestamp, 1)
+      duration,
+      segmentProgress: index < chapters.length - 1 ? (elapsed / duration) * 100 : 0
     };
   });
 
@@ -325,30 +304,24 @@ export default function Home() {
             </div>
           </div>
 
-          <div
-            className="chapters-sidebar"
-            ref={chaptersSidebarRef}
-            style={{ "--chapter-progress": `${chapterProgress}px` }}
-          >
-            <div className="chapters-track" aria-hidden="true">
-              <div className="chapters-track-fill" />
-            </div>
-
+          <div className="chapters-sidebar">
             {chapterSegments.map((chapter, index) => (
               <button
                 className={`chapter-item${activeChapter === index ? " active" : ""}`}
                 key={chapter.title}
                 type="button"
-                style={{ "--chapter-duration": chapter.duration }}
+                style={{
+                  "--chapter-duration": chapter.duration,
+                  "--chapter-segment-progress": `${chapter.segmentProgress}%`
+                }}
                 onClick={() => seekToChapter(chapter.timestamp, index)}
               >
-                <span
-                  className="chapter-marker"
-                  ref={(element) => {
-                    chapterMarkerRefs.current[index] = element;
-                  }}
-                  aria-hidden="true"
-                />
+                {index < chapterSegments.length - 1 && (
+                  <span className="chapter-line" aria-hidden="true">
+                    <span className="chapter-line-fill" />
+                  </span>
+                )}
+                <span className="chapter-marker" aria-hidden="true" />
                 <span className="chapter-content">
                   <span className="chapter-title">{chapter.title}</span>
                   <span className="chapter-description">{chapter.description}</span>
@@ -358,9 +331,7 @@ export default function Home() {
           </div>
         </section>
 
-        <div className="next-section">
-          Demo section goes here
-        </div>
+        <IndustriesSection />
       </div>
     </>
   );
