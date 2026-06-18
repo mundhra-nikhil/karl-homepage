@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import AnnouncementBar from "@/components/ui/AnnouncementBar";
-import CustomCursor from "@/components/ui/CustomCursor";
 import Hero from "@/components/sections/Hero";
 import BottomBar from "@/components/sections/BottomBar";
 import VideoDemo from "@/components/sections/VideoDemo";
@@ -21,8 +20,6 @@ export default function Home() {
 
   return (
     <>
-      <CustomCursor showAnnouncement={showAnnouncement} />
-
       {showAnnouncement && (
         <AnnouncementBar
           ref={barRef}
