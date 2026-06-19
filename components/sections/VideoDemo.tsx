@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import React from "react";
 
 
@@ -23,6 +23,64 @@ export default function VideoDemo() {
   const [videoTime, setVideoTime] = useState<number>(0);
   const [videoDuration, setVideoDuration] = useState<number>(0);
   const demoVideoRef = useRef<HTMLVideoElement>(null);
+
+  /* ── Refs for measuring title-span positions (not the whole button) ── */
+  const titleRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const barWrapRef = useRef<HTMLDivElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
+
+  /* ── State for measured dot positions (percentages along the bar) ── */
+  const [dotPositions, setDotPositions] = useState<number[]>([]);
+
+  /* ── Measure title-span center positions relative to the bar ── */
+  const measureTabPositions = useCallback(() => {
+    const barEl = barWrapRef.current;
+    if (!barEl) return;
+
+    const barRect = barEl.getBoundingClientRect();
+    const barHeight = barRect.height;
+    if (barHeight === 0) return;
+
+    const positions: number[] = [];
+    for (let i = 0; i < chapters.length; i++) {
+      const titleEl = titleRefs.current[i];
+      if (!titleEl) {
+        // Fallback: use timestamp proportion
+        const fallbackDuration = chapters[chapters.length - 1].timestamp + 10;
+        const dur = videoDuration || fallbackDuration;
+        positions.push((chapters[i].timestamp / dur) * 100);
+        continue;
+      }
+      const titleRect = titleEl.getBoundingClientRect();
+      // Vertical center of the title span, relative to the bar's top
+      const titleCenterY = titleRect.top + titleRect.height / 2 - barRect.top;
+      const pct = Math.max(0, Math.min(100, (titleCenterY / barHeight) * 100));
+      positions.push(pct);
+    }
+    setDotPositions(positions);
+  }, [videoDuration]);
+
+  /* ── Recalculate on mount, resize, active chapter change, and video duration changes ── */
+
+  // When the active chapter changes the description expands/collapses over 200ms.
+  // We wait 210ms (just past the transition end) so all tabs have settled.
+  useEffect(() => {
+    const id = setTimeout(measureTabPositions, 210);
+    return () => clearTimeout(id);
+  }, [measureTabPositions, activeChapter]);
+
+  useEffect(() => {
+    // Observe both the bar and the tabs container so any height change
+    // (e.g. description opening/closing) triggers an accurate remeasure.
+    const observer = new ResizeObserver(measureTabPositions);
+    if (barWrapRef.current) observer.observe(barWrapRef.current);
+    if (tabsRef.current) observer.observe(tabsRef.current);
+    window.addEventListener("resize", measureTabPositions);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measureTabPositions);
+    };
+  }, [measureTabPositions]);
 
   /* ── Original handler logic preserved exactly ── */
   const updateVideoState = (video: HTMLVideoElement | null): void => {
@@ -60,9 +118,59 @@ export default function VideoDemo() {
     setActiveChapter(index);
   };
 
-  /* ── Derived values (original chapterSegments calc preserved) ── */
+  /* ── Derived values ── */
   const fallbackDuration = chapters[chapters.length - 1].timestamp + 10;
   const measuredDuration = videoDuration || fallbackDuration;
+
+  /**
+   * Calculate the progress bar fill height as a percentage of the bar.
+   *
+   * The fill must be proportional to section durations (not raw time),
+   * so that the fill reaches each dot exactly when that chapter is active.
+   *
+   * We map videoTime into the [dotPositions[i], dotPositions[i+1]] range
+   * proportionally to where we are within that chapter's time segment.
+   */
+  const getBarFillPct = (): number => {
+    if (dotPositions.length === 0 || dotPositions.length !== chapters.length) {
+      // Fallback to raw time proportion
+      return videoProgress;
+    }
+
+    const currentTime = videoTime;
+
+    // Find which chapter segment we're in
+    let segmentIndex = 0;
+    for (let i = chapters.length - 1; i >= 0; i--) {
+      if (currentTime >= chapters[i].timestamp) {
+        segmentIndex = i;
+        break;
+      }
+    }
+
+    const chapterStart = chapters[segmentIndex].timestamp;
+    const chapterEnd =
+      segmentIndex < chapters.length - 1
+        ? chapters[segmentIndex + 1].timestamp
+        : measuredDuration;
+    const segmentDuration = chapterEnd - chapterStart;
+
+    const dotStart = dotPositions[segmentIndex];
+    const dotEnd =
+      segmentIndex < dotPositions.length - 1
+        ? dotPositions[segmentIndex + 1]
+        : 100;
+
+    if (segmentDuration <= 0) return dotStart;
+
+    const segmentProgress = Math.max(
+      0,
+      Math.min(1, (currentTime - chapterStart) / segmentDuration)
+    );
+    return dotStart + segmentProgress * (dotEnd - dotStart);
+  };
+
+  const barFillPct = getBarFillPct();
 
   return (
     <>
@@ -171,7 +279,7 @@ export default function VideoDemo() {
           align-self: stretch;
         }
 
-        /* Fill: driven by videoProgress (0-100) */
+        /* Fill: driven by barFillPct (mapped to dot positions) */
         .vd-bar-fill {
           position: absolute;
           top: 0;
@@ -239,20 +347,20 @@ export default function VideoDemo() {
           flex: 1;
           min-width: 0;
           display: flex;
-          align-items: stretch;
+          align-items: center;
         }
 
         .vd-video-pad {
           flex: 1;
           padding: 24px 24px 24px 0;
           display: flex;
-          align-items: stretch;
+          align-items: center;
         }
 
         .vd-video {
           width: 100%;
-          height: 100%;
-          object-fit: cover;
+          height: auto;
+          object-fit: contain;
           border-radius: 12px;
           display: block;
           pointer-events: none;
@@ -296,7 +404,9 @@ export default function VideoDemo() {
           }
           .vd-video-col {
             flex: none;
-            height: 300px;
+            height: auto;
+            display: flex;
+            align-items: center;
           }
           .vd-video-pad {
             padding: 0 16px 24px;
@@ -313,7 +423,7 @@ export default function VideoDemo() {
       <section className="vd-section">
 
         {/* ── Left: tab list ── */}
-        <div className="vd-tabs" role="tablist" aria-label="Karl feature tabs">
+        <div ref={tabsRef} className="vd-tabs" role="tablist" aria-label="Karl feature tabs">
           {chapters.map((chapter, i) => (
             <button
               key={chapter.title}
@@ -323,38 +433,53 @@ export default function VideoDemo() {
               className={`vd-tab${activeChapter === i ? " vd-active" : ""}`}
               onClick={() => seekToChapter(chapter.timestamp, i)}
             >
-              <span className="vd-tab-title">{chapter.title}</span>
+              <span
+                ref={(el) => { titleRefs.current[i] = el; }}
+                className="vd-tab-title"
+              >
+                {chapter.title}
+              </span>
               <span className="vd-tab-desc">{chapter.description}</span>
             </button>
           ))}
         </div>
 
         {/* ── Middle: golden vertical progress bar ── */}
-        <div className="vd-bar-wrap" aria-hidden="true">
-          {/* Fill height driven directly by videoProgress (0-100) */}
+        <div
+          ref={barWrapRef}
+          className="vd-bar-wrap"
+          aria-hidden="true"
+        >
+          {/* Fill height mapped to dot positions for proportional section scaling */}
           <div
             className="vd-bar-fill"
-            style={{ height: `${videoProgress}%` }}
+            style={{ height: `${barFillPct}%` }}
           />
 
-          {/* Per-chapter marker dots at proportional positions */}
-          {chapters.map((chapter, i) => (
-            <div
-              key={chapter.title}
-              className={`vd-dot${activeChapter === i ? " vd-dot-active" : ""}`}
-              style={{ top: `${(chapter.timestamp / measuredDuration) * 100}%` }}
-              onClick={() => seekToChapter(chapter.timestamp, i)}
-              role="button"
-              tabIndex={0}
-              aria-label={`Jump to ${chapter.title}`}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  seekToChapter(chapter.timestamp, i);
-                }
-              }}
-            />
-          ))}
+          {/* Per-chapter marker dots at measured tab-center positions */}
+          {chapters.map((chapter, i) => {
+            const topPct =
+              dotPositions.length === chapters.length
+                ? dotPositions[i]
+                : (chapter.timestamp / measuredDuration) * 100;
+            return (
+              <div
+                key={chapter.title}
+                className={`vd-dot${activeChapter === i ? " vd-dot-active" : ""}`}
+                style={{ top: `${topPct}%` }}
+                onClick={() => seekToChapter(chapter.timestamp, i)}
+                role="button"
+                tabIndex={0}
+                aria-label={`Jump to ${chapter.title}`}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    seekToChapter(chapter.timestamp, i);
+                  }
+                }}
+              />
+            );
+          })}
         </div>
 
         {/* ── Right: single video with padding wrapper ── */}

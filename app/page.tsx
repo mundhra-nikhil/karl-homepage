@@ -3,9 +3,9 @@
 import { useRef, useState } from "react";
 import AnnouncementBar from "@/components/ui/AnnouncementBar";
 import Hero from "@/components/sections/Hero";
-import BottomBar from "@/components/sections/BottomBar";
 import VideoDemo from "@/components/sections/VideoDemo";
 import Industries from "@/components/sections/Industries";
+import Footer from "@/components/sections/Footer";
 
 /**
  * Home — page orchestrator.
@@ -30,9 +30,9 @@ export default function Home() {
       <Hero showAnnouncement={showAnnouncement} barRef={barRef} />
 
       <div id="page-below">
-        <BottomBar />
         <VideoDemo />
         <Industries />
+        <Footer />
       </div>
     </>
   );
