@@ -6,8 +6,28 @@ export interface Chapter {
 
 /** Chapter markers for the demo video */
 export const chapters: Chapter[] = [
-  { timestamp: 0,  title: "Connect to data source", description: "0:00 - 0:10" },
-  { timestamp: 10, title: "Knowledge graphs",        description: "0:10 - 0:20" },
-  { timestamp: 20, title: "Telemetry insights",      description: "0:20 - 0:28" },
-  { timestamp: 28, title: "Prompting to Karl",       description: "0:28 - end"  },
+  {
+    timestamp: 0,
+    title: "Connect to Data Source",
+    description:
+      "Connect an existing data source or bring a new connection to life inside of Karl's context window within seconds.",
+  },
+  {
+    timestamp: 10,
+    title: "Knowledge Guide",
+    description:
+      "Visualize how tables and columns connect as lineages and schemas. Karl uses these graphs to plan and resolve queries and reduce ambiguity.",
+  },
+  {
+    timestamp: 20,
+    title: "Telemetry Insights",
+    description: "Track system health and query patterns across your workspace.",
+  },
+  {
+    timestamp: 28,
+    title: "Ask Karl Directly",
+    description:
+      "Chat with Karl to build comprehensive reports and get answers to urgent questions in natural language. Karl brings together a unique and powerful system to build the right graphs, summaries and analysis for you.",
+  },
 ];
+
