@@ -792,3 +792,373 @@ nav {
     padding-right: 0;
   }
 }
+
+/* ═══════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════ */
+.kanerika-main-footer {
+  background: #0d0d0d;
+  border-top: 1px solid #1e1e1e;
+  color: #c8c8c8;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 60px 40px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Top section (logo + desc + newsletter + social) ── */
+.footer-logo-section {
+  display: grid;
+  grid-template-columns: 200px 1fr 300px;
+  grid-template-rows: auto auto;
+  column-gap: 48px;
+  row-gap: 24px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #1e1e1e;
+  align-items: start;
+}
+
+.footer-logo-wrap {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: flex-start;
+}
+
+.footer-logo-wrap img {
+  width: 140px;
+  height: auto;
+  display: block;
+}
+
+.footer-desc-wrap {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.footer-desc {
+  color: #9a9a9a;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.footer-desc-accent {
+  color: #c8c8c8;
+}
+
+.footer-newsletter {
+  grid-column: 3;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footer-news-label {
+  color: #e0e0e0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.footer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.footer-form-label {
+  font-size: 12px;
+  color: #777;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.footer-form-input {
+  background: #161616;
+  border: 1px solid #2a2a2a;
+  border-radius: 6px;
+  padding: 10px 14px;
+  color: #e0e0e0;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  font-family: inherit;
+}
+
+.footer-form-input::placeholder {
+  color: #444;
+}
+
+.footer-form-input:focus {
+  border-color: #4b6cf7;
+}
+
+.footer-form-btn {
+  background: #4b6cf7;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  align-self: flex-start;
+  font-family: inherit;
+}
+
+.footer-form-btn:hover {
+  background: #3a57e8;
+  transform: translateY(-1px);
+}
+
+/* Social icons row */
+.footer-social-icons {
+  grid-column: 1 / 3;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: 1px solid #252525;
+  color: #9a9a9a;
+  transition: background 0.2s, color 0.2s, transform 0.15s, border-color 0.2s;
+  text-decoration: none;
+}
+
+.social-icon svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+  display: block;
+}
+
+.social-icon:hover {
+  background: #4b6cf7;
+  border-color: #4b6cf7;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ── Navigation link columns ── */
+.footer-link-section {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  padding: 40px 0;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.footer-col-heading {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.footer-col-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.footer-col-links--mt {
+  margin-top: 16px;
+}
+
+.footer-col-links a {
+  color: #7a7a7a;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.footer-col-links a:hover {
+  color: #e0e0e0;
+}
+
+/* ── Badge + bottom bar section ── */
+.footer-social-section {
+  padding: 36px 0 0;
+}
+
+.footer-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.footer-badges-group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-badges-group a {
+  display: flex;
+  align-items: center;
+  opacity: 0.75;
+  transition: opacity 0.2s;
+}
+
+.footer-badges-group a:hover {
+  opacity: 1;
+}
+
+.footer-badges-group img {
+  height: 42px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.footer-g2-badge {
+  height: 52px !important;
+}
+
+.footer-badge-divider {
+  width: 1px;
+  height: 48px;
+  background: #252525;
+  flex-shrink: 0;
+}
+
+/* Bottom bar */
+.footer-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 0 28px;
+  flex-wrap: wrap;
+}
+
+.footer-copyright {
+  color: #555;
+  font-size: 13px;
+}
+
+.footer-legal-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.footer-legal-links li + li::before {
+  content: "·";
+  color: #333;
+  margin-right: 4px;
+}
+
+.footer-legal-links a {
+  color: #555;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
+}
+
+.footer-legal-links a:hover {
+  color: #e0e0e0;
+}
+
+/* ── Footer responsive ── */
+@media (max-width: 1024px) {
+  .footer-logo-section {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .footer-logo-wrap { grid-column: 1; grid-row: 1; }
+  .footer-desc-wrap { grid-column: 1 / 3; grid-row: 2; }
+  .footer-newsletter { grid-column: 2; grid-row: 1; }
+  .footer-social-icons { grid-column: 1 / 3; grid-row: 3; }
+
+  .footer-link-section {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-inner {
+    padding: 40px 20px 0;
+  }
+
+  .footer-logo-section {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .footer-logo-wrap, .footer-desc-wrap,
+  .footer-newsletter, .footer-social-icons {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .footer-link-section {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .footer-badges-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .footer-badge-divider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .footer-bottom-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
