@@ -173,16 +173,16 @@ export default function Footer() {
           <div className="footer-badges-row">
             <div className="footer-badges-group">
               <a href="https://www.goodfirms.co/company/kanerika-inc" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/GoodsFirms.svg" alt="GoodsFirms" width={122} height={42} unoptimized />
+                <Image src="https://kanerika.com/wp-content/uploads/2024/05/GoodsFirms.svg" alt="GoodsFirms" width={0} height={0} style={{ height: "42px", width: "auto" }} unoptimized />
               </a>
               <a href="https://pars.cmmiinstitute.com/appraisals/71370" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/CMMI.svg" alt="CMMI" width={72} height={42} unoptimized />
+                <Image src="https://kanerika.com/wp-content/uploads/2024/05/CMMI.svg" alt="CMMI" width={0} height={0} style={{ height: "42px", width: "auto" }} unoptimized />
               </a>
               <a href="https://clutch.co/profile/kanerika" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Clutch-Light.svg" alt="Clutch" width={71} height={42} unoptimized />
+                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Clutch-Light.svg" alt="Clutch" width={0} height={0} style={{ height: "42px", width: "auto" }} unoptimized />
               </a>
               <a href="https://www.capterra.in/software/1062440/flip" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Capterra-Light.svg" alt="Capterra" width={103} height={42} unoptimized />
+                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Capterra-Light.svg" alt="Capterra" width={0} height={0} style={{ height: "42px", width: "auto" }} unoptimized />
               </a>
             </div>
 
@@ -190,16 +190,16 @@ export default function Footer() {
 
             <div className="footer-badges-group">
               <a href="https://www.glassdoor.co.in/Reviews/Kanerika-Software-Reviews-E1319224.htm" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Glassdoor-Logo.svg" alt="Glassdoor" width={100} height={42} unoptimized />
+                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Glassdoor-Logo.svg" alt="Glassdoor" width={0} height={0} style={{ height: "42px", width: "auto" }} unoptimized />
               </a>
               <a href="https://www.g2.com/sellers/kanerika" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Asset-20-1.svg" alt="G2 badge" width={61} height={70} unoptimized className="footer-g2-badge" />
+                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Asset-20-1.svg" alt="G2 badge" width={0} height={0} style={{ height: "52px", width: "auto" }} unoptimized />
               </a>
               <a href="https://www.50pros.com/agency/kanerika?utm_source=widget&utm_medium=embed&utm_campaign=global-award" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/50PROS.svg" alt="50PROS" width={48} height={53} unoptimized />
+                <Image src="https://kanerika.com/wp-content/uploads/2024/05/50PROS.svg" alt="50PROS" width={0} height={0} style={{ height: "52px", width: "auto" }} unoptimized />
               </a>
               <a href="https://www.greatplacetowork.in/great/company/kanerika-inc" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Great-Place-To-Work.svg" alt="Great Place To Work" width={42} height={42} unoptimized />
+                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Great-Place-To-Work.svg" alt="Great Place To Work" width={0} height={0} style={{ height: "42px", width: "auto" }} unoptimized />
               </a>
             </div>
           </div>
