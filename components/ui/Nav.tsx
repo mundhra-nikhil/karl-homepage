@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 /**
  * Nav — top navigation bar.
  * Stateless; no props required.
@@ -6,7 +8,13 @@ export default function Nav() {
   return (
     <nav>
       <a href="#" className="nav-logo">
-        <div className="logomark">K</div>
+        <Image
+          src="/karl logo.png"
+          alt="Karl Logo"
+          width={30}
+          height={30}
+          className="object-contain"
+        />
         <span className="wordmark">Karl</span>
       </a>
 
