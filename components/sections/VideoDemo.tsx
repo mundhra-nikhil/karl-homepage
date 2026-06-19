@@ -37,6 +37,18 @@ const chapters: Chapter[] = [
 ];
 
 /* ─── Component ─────────────────────────────────────────────────────────── */
+import { chapters } from "@/lib/data/videoChapters";
+import type { Chapter } from "@/lib/data/videoChapters";
+
+interface ChapterSegment extends Chapter {
+  duration: number;
+  segmentProgress: number;
+}
+
+/**
+ * VideoDemo — demo video player with a chapter sidebar.
+ * Owns all video state internally; no props required.
+ */
 export default function VideoDemo() {
   /* ── All original state & refs preserved ── */
   const [activeChapter, setActiveChapter] = useState<number>(0);
