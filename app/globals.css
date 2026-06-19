@@ -1,8 +1,17 @@
 @import "tailwindcss";
 @source "../components";
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: auto; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto;
+}
 
 body {
   font-family: var(--font-inter), system-ui, sans-serif;
@@ -92,19 +101,17 @@ button {
 #overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(0,0,0,0.3) 0%,
-    rgba(0,0,0,0.1) 55%,
-    rgba(0,0,0,0.02) 100%
-  );
+  background: linear-gradient(to right,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.1) 55%,
+      rgba(0, 0, 0, 0.02) 100%);
   z-index: 2;
 }
 
 #overlay-extra {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
   z-index: 3;
   opacity: 0;
   pointer-events: none;
@@ -161,7 +168,7 @@ nav {
 .nav-links a {
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255,255,255,.7);
+  color: rgba(255, 255, 255, .7);
   text-decoration: none;
   padding: 6px 14px;
   border-radius: 6px;
@@ -170,7 +177,7 @@ nav {
 
 .nav-links a:hover {
   color: #fff;
-  background: rgba(255,255,255,.07);
+  background: rgba(255, 255, 255, .07);
 }
 
 .nav-right {
@@ -183,7 +190,7 @@ nav {
   font-size: 13.5px;
   font-weight: 600;
   color: #fff;
-  border: 1px solid rgba(255,255,255,.3);
+  border: 1px solid rgba(255, 255, 255, .3);
   padding: 8px 18px;
   border-radius: 6px;
   text-decoration: none;
@@ -191,8 +198,8 @@ nav {
 }
 
 .n-login:hover {
-  background: rgba(255,255,255,.08);
-  border-color: rgba(255,255,255,.6);
+  background: rgba(255, 255, 255, .08);
+  border-color: rgba(255, 255, 255, .6);
 }
 
 .n-demo {
@@ -232,7 +239,7 @@ nav {
 .hero-sub {
   font-size: 17px;
   font-weight: 400;
-  color: rgba(255,255,255,.62);
+  color: rgba(255, 255, 255, .62);
   line-height: 1.65;
   max-width: 500px;
   margin-top: 20px;
@@ -256,7 +263,7 @@ nav {
 .hero-cta:hover {
   background: #eee;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .4);
 }
 
 #scroll-hint {
@@ -275,7 +282,7 @@ nav {
 #scroll-hint span {
   font-size: 10px;
   font-weight: 500;
-  color: rgba(255,255,255,.4);
+  color: rgba(255, 255, 255, .4);
   text-transform: uppercase;
   letter-spacing: 1.5px;
 }
@@ -295,8 +302,15 @@ nav {
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(7px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(7px);
+  }
 }
 
 #page-below {
@@ -387,7 +401,7 @@ nav {
   border-radius: 8px;
   overflow: hidden;
   aspect-ratio: 16 / 9;
-  box-shadow: 0 24px 48px rgba(0,0,0,.5);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, .5);
 }
 
 .demo-video {
@@ -403,7 +417,7 @@ nav {
   left: 0;
   right: 0;
   height: 4px;
-  background: rgba(255,255,255,.1);
+  background: rgba(255, 255, 255, .1);
   cursor: pointer;
 }
 
@@ -434,12 +448,12 @@ nav {
 }
 
 .chapters-sidebar::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,.2);
+  background: rgba(255, 255, 255, .2);
   border-radius: 3px;
 }
 
 .chapters-sidebar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,.3);
+  background: rgba(255, 255, 255, .3);
 }
 
 .chapter-item {
@@ -462,12 +476,12 @@ nav {
 }
 
 .chapter-item:hover {
-  background: rgba(255,255,255,.05);
+  background: rgba(255, 255, 255, .05);
   transform: translateX(4px);
 }
 
 .chapter-item.active {
-  background: rgba(255,255,255,.15);
+  background: rgba(255, 255, 255, .15);
 }
 
 .chapter-line {
@@ -476,7 +490,7 @@ nav {
   bottom: calc(var(--chapter-marker-center) * -1);
   left: 16px;
   width: 3px;
-  background: rgba(255,255,255,.14);
+  background: rgba(255, 255, 255, .14);
   border-radius: 999px;
   overflow: hidden;
   pointer-events: none;
@@ -489,7 +503,7 @@ nav {
   height: var(--chapter-segment-progress);
   background: #fff;
   border-radius: inherit;
-  box-shadow: 0 0 16px rgba(255,255,255,.35);
+  box-shadow: 0 0 16px rgba(255, 255, 255, .35);
   transition: height .12s linear;
 }
 
@@ -500,7 +514,7 @@ nav {
   height: 10px;
   margin-top: 4px;
   background: #252525;
-  border: 2px solid rgba(255,255,255,.32);
+  border: 2px solid rgba(255, 255, 255, .32);
   border-radius: 50%;
   flex-shrink: 0;
   box-shadow: 0 0 0 5px #0d0d0d;
@@ -509,7 +523,7 @@ nav {
 .chapter-item.active .chapter-marker {
   background: #fff;
   border-color: #fff;
-  box-shadow: 0 0 0 5px #0d0d0d, 0 0 14px rgba(255,255,255,.55);
+  box-shadow: 0 0 0 5px #0d0d0d, 0 0 14px rgba(255, 255, 255, .55);
 }
 
 .chapter-content {
@@ -530,12 +544,12 @@ nav {
 .chapter-description {
   display: block;
   font-size: 12px;
-  color: rgba(255,255,255,.5);
+  color: rgba(255, 255, 255, .5);
   line-height: 1.3;
 }
 
 .chapter-item.active .chapter-description {
-  color: rgba(255,255,255,.8);
+  color: rgba(255, 255, 255, .8);
 }
 
 .next-section {
@@ -552,13 +566,15 @@ nav {
 /* ── Industries section ─────────────────────────────────────── */
 .industries-section {
   padding: 64px 0;
-  background: #fff;
+  background: #0A0A0B;
   overflow: hidden;
+  position: relative;
 }
 
 .industries-inner {
   max-width: 1280px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .industries-header {
@@ -568,22 +584,19 @@ nav {
 }
 
 .industries-header h2 {
-  font-size: clamp(28px, 4vw, 36px);
+  font-size: clamp(1.75rem, 4vw, 3rem);
   font-weight: 700;
-  color: #111;
+  color: #FFFFFF;
   margin-bottom: 12px;
 }
 
 .industries-header p {
-  font-size: 17px;
-  color: #666;
+  font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+  color: #9CA3AF;
 }
 
-/* Mobile: horizontal snap-scroll carousel */
-.industries-grid {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
+.industries-viewport {
+  width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -591,27 +604,35 @@ nav {
   scrollbar-width: none;
 }
 
-.industries-grid::-webkit-scrollbar {
+.industries-viewport::-webkit-scrollbar {
   display: none;
+}
+
+.industries-track {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  will-change: transform;
 }
 
 .industry-card {
   flex: 0 0 72vw;
   scroll-snap-align: start;
-  background: #fff;
+  background: #141417;
   border-radius: 14px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
   display: flex;
   flex-direction: column;
 }
 
 .industry-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(0,0,0,.12);
-  border-color: #d0d0d0;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+  border-color: rgba(59, 130, 246, 0.4);
+  background-color: #1A1A1F;
 }
 
 .industry-card-image {
@@ -632,13 +653,9 @@ nav {
 .industry-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,.18), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.industry-card:hover .industry-card-overlay {
+  background: linear-gradient(to top, rgba(10, 10, 11, 0.6), transparent);
   opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 .industry-card-text {
@@ -649,36 +666,44 @@ nav {
 .industry-card-text h3 {
   font-size: 16px;
   font-weight: 600;
-  color: #111;
+  color: #F5F5F7;
   margin-bottom: 8px;
   transition: color 0.3s ease;
 }
 
 .industry-card:hover .industry-card-text h3 {
-  color: #1d4ed8;
+  color: #3B82F6;
 }
 
 .industry-card-text p {
   font-size: 13.5px;
-  color: #777;
+  color: #9CA3AF;
   line-height: 1.6;
   transition: color 0.3s ease;
 }
 
 .industry-card:hover .industry-card-text p {
-  color: #444;
+  color: #FFFFFF;
 }
 
-.industry-card-accent {
-  height: 3px;
-  background: #1d4ed8;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.3s ease;
+/* Progress bar - hidden on mobile */
+.industries-progress-wrap {
+  display: none;
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: visible;
+  position: relative;
+  margin-top: 16px;
 }
 
-.industry-card:hover .industry-card-accent {
-  transform: scaleX(1);
+.industries-progress-bar {
+  height: 100%;
+  background: #3B82F6;
+  width: 0%;
+  will-change: width;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
 }
 
 /* Scroll hint dots — mobile only */
@@ -694,7 +719,7 @@ nav {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #ddd;
+  background: #333;
 }
 
 @media (min-width: 640px) {
@@ -704,16 +729,89 @@ nav {
 }
 
 @media (min-width: 768px) {
-  .industries-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    overflow-x: visible;
-    scroll-snap-type: none;
-    padding: 8px 48px 8px;
+  .industries-section {
+    height: 100dvh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(1.5rem, 4vh, 3.5rem);
+    padding-inline: 0;
+    overflow: hidden;
+  }
+
+  .industries-inner {
+    max-width: 100vw;
+    margin: 0;
+    padding-inline: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.2rem, 2.5vh, 2rem);
+    height: auto;
+  }
+
+  .industries-header {
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  .industries-header h2 {
+    font-size: clamp(1.75rem, 4.5vh, 2.75rem);
+    margin-bottom: clamp(6px, 1.5vh, 12px);
+  }
+
+  .industries-header p {
+    font-size: clamp(0.9rem, 2vh, 1.15rem);
+  }
+
+  .industries-viewport {
+    overflow: hidden;
+    padding: 0;
+    container-type: inline-size;
+  }
+
+  .industries-track {
+    gap: 32px;
   }
 
   .industry-card {
-    flex: unset;
+    /* Tablet layout: show 2 cards in viewport and lock height relative to viewport height */
+    width: calc((100cqw - 32px) / 2);
+    flex: 0 0 calc((100cqw - 32px) / 2);
+    height: clamp(300px, 48vh, 480px);
+    scroll-snap-align: none;
+  }
+
+  .industry-card-image {
+    height: 65%;
+    aspect-ratio: auto;
+    flex-shrink: 0;
+  }
+
+  .industry-card-text {
+    height: 35%;
+    padding: clamp(12px, 2vh, 18px) 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+
+  .industry-card-text h3 {
+    font-size: clamp(0.95rem, 2vh, 1.1rem);
+    margin-bottom: clamp(4px, 0.8vh, 8px);
+  }
+
+  .industry-card-text p {
+    font-size: clamp(0.8rem, 1.6vh, 0.92rem);
+    line-height: 1.5;
+  }
+
+  .industries-progress-wrap {
+    display: block;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   .industries-dots {
@@ -722,8 +820,10 @@ nav {
 }
 
 @media (min-width: 1024px) {
-  .industries-grid {
-    grid-template-columns: repeat(4, 1fr);
+  .industry-card {
+    /* Desktop layout: show 3 cards in viewport */
+    width: calc((100cqw - 64px) / 3);
+    flex: 0 0 calc((100cqw - 64px) / 3);
   }
 }
 
