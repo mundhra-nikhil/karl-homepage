@@ -1262,3 +1262,19 @@ nav {
     gap: 12px;
   }
 }
+
+/* Documentation Content Styles */
+.docs-content { line-height: 1.7; color: #d1d5db; }
+.docs-content h1 { font-size: 2.25rem; font-weight: 800; color: #fff; margin-bottom: 1.5rem; margin-top: 2rem; }
+.docs-content h2 { font-size: 1.875rem; font-weight: 700; color: #fff; margin-bottom: 1.25rem; margin-top: 2rem; border-bottom: 1px solid #27272a; padding-bottom: 0.5rem; }
+.docs-content h3 { font-size: 1.5rem; font-weight: 600; color: #e4e4e7; margin-bottom: 1rem; margin-top: 1.5rem; }
+.docs-content h4 { font-size: 1.25rem; font-weight: 600; color: #e4e4e7; margin-bottom: 0.75rem; margin-top: 1.25rem; }
+.docs-content p { margin-bottom: 1.25rem; }
+.docs-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+.docs-content ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; }
+.docs-content li { margin-bottom: 0.5rem; }
+.docs-content a { color: #60a5fa; text-decoration: none; }
+.docs-content a:hover { text-decoration: underline; }
+.docs-content table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+.docs-content th, .docs-content td { border: 1px solid #3f3f46; padding: 0.75rem; text-align: left; }
+.docs-content th { background-color: #27272a; color: #fff; font-weight: 600; }
