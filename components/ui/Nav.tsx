@@ -1,4 +1,5 @@
 import DocsSearch from "@/components/docs/DocsSearch";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 /**
  * Nav — top navigation bar.
@@ -28,6 +29,7 @@ export default function Nav({ showDocsSearch = false }: NavProps) {
 
       <div className="nav-right">
         {showDocsSearch && <DocsSearch />}
+        {showDocsSearch && <ThemeToggle />}
         <a href="#" className="n-login" style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
           Login
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{flexShrink: 0}}>

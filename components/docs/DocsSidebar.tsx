@@ -11,7 +11,7 @@ export default function DocsSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden md:flex flex-col sticky top-[68px] h-[calc(100vh-68px)] w-[280px] shrink-0 border-r border-white/5 bg-[#050505] overflow-y-auto scrollbar-hide">
+    <aside className="hidden md:flex flex-col sticky top-[68px] h-[calc(100vh-68px)] w-[280px] shrink-0 border-r border-docs-border-main bg-docs-bg-sidebar overflow-y-auto scrollbar-hide transition-colors duration-200">
       {/* Scrollable nav content */}
       <div className="relative px-6 pt-8 pb-6 flex flex-col gap-8">
         {docCategories.map((category) => {
@@ -19,11 +19,11 @@ export default function DocsSidebar() {
 
           return (
             <div key={category.id}>
-              <h4 className="text-xs font-bold text-slate-100 uppercase tracking-widest mb-3 flex items-center gap-2">
+              <h4 className="text-xs font-bold text-docs-text-primary uppercase tracking-widest mb-3 flex items-center gap-2 transition-colors duration-200">
                 <div className={`w-2 h-2 rounded-full shrink-0 ${styles.dot}`}></div>
                 {category.sidebarTitle}
               </h4>
-              <ul className="flex flex-col gap-1.5 border-l border-white/5 ml-1 pl-4 text-sm">
+              <ul className="flex flex-col gap-1.5 border-l border-docs-border-main ml-1 pl-4 text-sm transition-colors duration-200">
                 {category.articles.map((article) => {
                   const href = `/docs/${article.slug}`;
                   const isActive = pathname === href;
@@ -32,10 +32,10 @@ export default function DocsSidebar() {
                     <li key={article.slug}>
                       <Link
                         href={href}
-                        className={`block py-1 transition-colors ${
+                        className={`block py-1 transition-colors duration-200 ${
                           isActive
                             ? `${styles.tocActive} font-medium`
-                            : `text-slate-400 ${styles.hover}`
+                            : `text-docs-text-muted hover:text-docs-text-primary`
                         }`}
                       >
                         {article.sidebarTitle}

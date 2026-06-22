@@ -22,7 +22,7 @@ export default function DocsCardGrid({ category }: DocsCardGridProps) {
         >
           <CategoryIcon categoryId={category.id} />
         </div>
-        <h2 className="text-3xl font-bold text-slate-50">{category.title}</h2>
+        <h2 className="text-3xl font-bold text-docs-text-primary transition-colors duration-200">{category.title}</h2>
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
@@ -30,21 +30,16 @@ export default function DocsCardGrid({ category }: DocsCardGridProps) {
           <Link
             key={article.slug}
             href={`/docs/${article.slug}`}
-            className={`group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 ${styles.cardFrom} ${styles.cardTo} transition-all duration-500 hover:-translate-y-1 ${styles.cardShadow} ${article.wide ? "col-span-2" : ""}`}
+            className={`group relative flex flex-col rounded-2xl border border-docs-card-border bg-docs-bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${styles.cardBorderHover} ${article.wide ? "col-span-2" : ""}`}
           >
-            <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
-              <div
-                className={`absolute top-0 right-0 w-32 h-32 ${styles.cardGlow} blur-[50px] rounded-full ${styles.cardGlowHover} transition-all`}
-              ></div>
-              <h3
-                className={`text-lg font-semibold text-slate-200 mb-3 ${styles.cardTitleHover} transition-colors`}
-              >
-                {article.title}
-              </h3>
-              <p className="text-sm text-slate-400 flex-1 leading-relaxed">
-                {article.description}
-              </p>
-            </div>
+            <h3
+              className={`text-lg font-semibold text-docs-text-primary mb-3 ${styles.cardTitleHover} transition-colors duration-200`}
+            >
+              {article.title}
+            </h3>
+            <p className="text-sm text-docs-text-muted flex-1 leading-relaxed transition-colors duration-200">
+              {article.description}
+            </p>
           </Link>
         ))}
       </div>
