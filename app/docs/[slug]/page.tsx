@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import DocArticle from "@/components/docs/DocArticle";
 import DocLayout from "@/components/docs/DocLayout";
-import { getDocContent } from "@/lib/data/docs/content";
+import ArticleTableOfContents from "@/components/docs/ArticleTableOfContents";
+import { getDocContent, processArticleHtml } from "@/lib/data/docs/content";
 import { docSlugs, getDocArticle } from "@/lib/data/docs/manifest";
 
 interface DocPageProps {
@@ -38,9 +39,11 @@ export default async function DocPage({ params }: DocPageProps) {
     notFound();
   }
 
+  const { cleanHtml, headings } = processArticleHtml(content.html);
+
   return (
-    <DocLayout>
-      <DocArticle html={content.html} />
+    <DocLayout toc={<ArticleTableOfContents headings={headings} />}>
+      <DocArticle html={cleanHtml} article={article} />
     </DocLayout>
   );
 }

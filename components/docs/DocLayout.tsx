@@ -5,9 +5,10 @@ import DocsSidebar from "@/components/docs/DocsSidebar";
 
 interface DocLayoutProps {
   children: React.ReactNode;
+  toc?: React.ReactNode;
 }
 
-export default function DocLayout({ children }: DocLayoutProps) {
+export default function DocLayout({ children, toc }: DocLayoutProps) {
   return (
     <div className="flex flex-col min-h-screen bg-[#050505] text-slate-300 selection:bg-blue-500/30 font-sans">
       <div className="docs-nav-wrapper sticky top-0 h-[68px] z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5">
@@ -43,6 +44,8 @@ export default function DocLayout({ children }: DocLayoutProps) {
             {children}
           </div>
         </main>
+
+        {toc && toc}
       </div>
 
       <Footer />

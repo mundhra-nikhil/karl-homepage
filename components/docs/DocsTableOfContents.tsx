@@ -13,7 +13,7 @@ export default function DocsTableOfContents({
   activeSection,
 }: DocsTableOfContentsProps) {
   return (
-    <aside className="hidden xl:flex flex-col shrink-0 sticky top-[68px] h-[calc(100vh-68px)] w-[240px] border-l border-white/5 bg-[#050505] overflow-y-auto">
+    <aside className="hidden xl:flex flex-col shrink-0 sticky top-[68px] h-[calc(100vh-68px)] w-[240px] border-l border-white/5 bg-[#050505] overflow-y-auto scrollbar-hide">
       {/* Sticky label — pins to top of the aside's scroll context */}
       <div className="sticky top-0 z-50 bg-[#050505] px-6 pt-10 pb-4 border-b border-white/5">
         <h4 className="text-xs font-bold text-slate-100 uppercase tracking-widest">

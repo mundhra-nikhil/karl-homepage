@@ -1276,23 +1276,23 @@ nav {
 
 /* Documentation Content Styles */
 .docs-content {
-  line-height: 1.75;
-  color: #d1d5db;
+  line-height: 1.8;
+  color: #e5e7eb;
 }
 
 .docs-content h1 {
-  font-size: 2.25rem;
-  font-weight: 800;
-  color: #fff;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #ffffff;
   margin-bottom: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 2.5rem;
   letter-spacing: -0.02em;
 }
 
 .docs-content h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #f4f4f5;
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: #f3f4f6;
   margin-bottom: 1rem;
   margin-top: 2.5rem;
   padding-bottom: 0.5rem;
@@ -1300,17 +1300,17 @@ nav {
 }
 
 .docs-content h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #e4e4e7;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #e5e7eb;
   margin-bottom: 0.75rem;
   margin-top: 2rem;
 }
 
 .docs-content h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #a1a1aa;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #d1d5db;
   margin-bottom: 0.5rem;
   margin-top: 1.5rem;
   text-transform: uppercase;
@@ -1318,6 +1318,8 @@ nav {
 }
 
 .docs-content p {
+  font-size: 1rem;
+  font-weight: 400;
   margin-bottom: 1.25rem;
 }
 
@@ -1351,13 +1353,13 @@ nav {
 
 .docs-content strong,
 .docs-content b {
-  color: #f4f4f5;
+  color: #f3f4f6;
   font-weight: 600;
 }
 
 .docs-content em,
 .docs-content i {
-  color: #a1a1aa;
+  color: #d1d5db;
 }
 
 /* Inline code */
@@ -1398,7 +1400,7 @@ nav {
   border-radius: 0 8px 8px 0;
   padding: 0.875rem 1.25rem;
   margin: 1.5rem 0;
-  color: #94a3b8;
+  color: #cbd5e1;
   font-style: italic;
 }
 
@@ -1416,34 +1418,62 @@ nav {
 /* Tables */
 .docs-content table {
   width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 1.5rem;
-  font-size: 0.9rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2rem 0;
+  font-size: 0.95rem;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.08);
+  background-color: #0b1120;
 }
 
 .docs-content th,
 .docs-content td {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.75rem 1rem;
+  padding: 1rem 1.25rem;
   text-align: left;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+  border-right: 1px solid rgba(59, 130, 246, 0.05);
 }
 
-.docs-content th {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: #f4f4f5;
+.docs-content th:last-child,
+.docs-content td:last-child {
+  border-right: none;
+}
+
+.docs-content th,
+.docs-content tr:first-child td {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #eff6ff;
   font-weight: 600;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .docs-content td {
-  color: #a1a1aa;
+  color: #cbd5e1;
+  background-color: transparent;
+}
+
+/* Make sure paragraphs inside tables don't break spacing */
+.docs-content td p,
+.docs-content th p {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.docs-content tr:last-child td {
+  border-bottom: none;
+}
+
+.docs-content tr:nth-child(even) td {
+  background-color: rgba(59, 130, 246, 0.03);
 }
 
 .docs-content tr:hover td {
-  background: rgba(255, 255, 255, 0.02);
-  color: #d1d5db;
+  background-color: rgba(59, 130, 246, 0.08);
+  color: #ffffff;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Images */
@@ -1451,6 +1481,39 @@ nav {
   max-width: 100%;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   background-color: #ffffff !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+/* Hide scrollbar for sidebars but allow scrolling */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

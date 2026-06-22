@@ -11,7 +11,7 @@ export default function DocsSidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden md:flex flex-col sticky top-[68px] h-[calc(100vh-68px)] w-[280px] shrink-0 border-r border-white/5 bg-[#050505] overflow-y-auto">
+    <aside className="hidden md:flex flex-col sticky top-[68px] h-[calc(100vh-68px)] w-[280px] shrink-0 border-r border-white/5 bg-[#050505] overflow-y-auto scrollbar-hide">
       {/* Scrollable nav content */}
       <div className="relative px-6 pt-8 pb-6 flex flex-col gap-8">
         {docCategories.map((category) => {
