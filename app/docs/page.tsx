@@ -34,7 +34,7 @@ export default function DocsPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#050505] text-slate-300 selection:bg-blue-500/30 font-sans">
       <div className="docs-nav-wrapper sticky top-0 h-[68px] z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5">
-        <Nav />
+        <Nav showDocsSearch={true} />
       </div>
 
       <div className="flex flex-1 w-full max-w-7xl mx-auto relative">

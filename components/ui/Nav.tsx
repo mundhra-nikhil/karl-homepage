@@ -1,13 +1,21 @@
+import DocsSearch from "@/components/docs/DocsSearch";
+
 /**
  * Nav — top navigation bar.
- * Stateless; no props required.
  */
-export default function Nav() {
+interface NavProps {
+  showDocsSearch?: boolean;
+}
+
+export default function Nav({ showDocsSearch = false }: NavProps) {
   return (
     <nav>
-      <a href="#" className="nav-logo">
-        <div className="logomark">K</div>
+      <a href="/" className="nav-logo">
+        <img src="/karl-logo.png" alt="Karl Logo" className="w-[30px] h-[30px] rounded-md object-contain bg-white" />
         <span className="wordmark">Karl</span>
+        {showDocsSearch && (
+          <span className="text-slate-400 font-medium text-lg hidden sm:inline-block">Docs</span>
+        )}
       </a>
 
       <ul className="nav-links">
@@ -19,6 +27,7 @@ export default function Nav() {
       </ul>
 
       <div className="nav-right">
+        {showDocsSearch && <DocsSearch />}
         <a href="#" className="n-login" style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
           Login
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{flexShrink: 0}}>

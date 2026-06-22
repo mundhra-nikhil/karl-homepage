@@ -12,13 +12,6 @@ export default function DocsSidebar() {
 
   return (
     <aside className="hidden md:flex flex-col sticky top-[68px] h-[calc(100vh-68px)] w-[280px] shrink-0 border-r border-white/5 bg-[#050505] overflow-y-auto">
-      {/* Sticky header — pins to top of the aside's scroll context */}
-      <div className="sticky top-0 z-50 bg-[#050505] px-6 pt-8 pb-5 border-b border-white/5">
-        <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
-          Karl Docs
-        </h2>
-      </div>
-
       {/* Scrollable nav content */}
       <div className="relative px-6 pt-8 pb-6 flex flex-col gap-8">
         {docCategories.map((category) => {
