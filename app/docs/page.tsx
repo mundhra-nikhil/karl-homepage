@@ -3,54 +3,59 @@
 import Nav from "@/components/ui/Nav";
 import Footer from "@/components/sections/Footer";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function DocsPage() {
   const [activeSection, setActiveSection] = useState("getting-started");
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["getting-started", "product-info", "security-compliance"];
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            setActiveSection(section);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
           }
-        }
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+        });
+      },
+      { rootMargin: "-150px 0px -60% 0px" }
+    );
+
+    const sections = ["getting-started", "product-info", "security-compliance"];
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#050505] text-slate-300 selection:bg-blue-500/30 font-sans">
       {/* Header Container */}
-      <div className="relative h-[68px] z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5">
+      <div className="sticky top-0 h-[68px] z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5">
         <Nav />
       </div>
 
-      <div className="flex flex-1 w-full max-w-[1600px] mx-auto relative">
+      <div className="flex flex-1 w-full max-w-7xl mx-auto relative">
         {/* Left Sidebar */}
-        <aside className="hidden md:flex flex-col sticky top-[68px] h-[calc(100vh-68px)] w-[280px] border-r border-white/5 bg-[#050505]/50 backdrop-blur-xl shrink-0 overflow-y-auto scrollbar-hide py-8 px-6">
+        <aside className="hidden md:flex flex-col sticky top-[68px] h-[calc(100vh-68px)] w-[280px] shrink-0 overflow-y-auto py-8 px-6 border-r border-white/5 bg-black/50 backdrop-blur-xl">
           <div className="mb-8">
             <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-500">Karl Docs</h2>
             <p className="text-xs text-slate-500 mt-1">v2.0.0-beta</p>
           </div>
           
-          <nav className="space-y-8">
+          <nav className="flex flex-col gap-8">
             {/* Group 1 */}
             <div>
               <h4 className="text-xs font-bold text-slate-100 uppercase tracking-widest mb-3 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                 Getting Started
               </h4>
-              <ul className="space-y-1.5 border-l border-white/5 ml-1 pl-4 text-sm">
-                <li><a href="/docs/enablement-guide" className="block py-1 text-slate-400 hover:text-blue-400 transition-colors">Enablement Guide</a></li>
-                <li><a href="/docs/trial-experience" className="block py-1 text-slate-400 hover:text-blue-400 transition-colors">Trial Experience</a></li>
-                <li><a href="/docs/workload-enablement" className="block py-1 text-slate-400 hover:text-blue-400 transition-colors">Workload Enablement</a></li>
-                <li><a href="/docs/user-guide" className="block py-1 text-slate-400 hover:text-blue-400 transition-colors">User Guide</a></li>
+              <ul className="flex flex-col gap-1.5 border-l border-white/5 ml-1 pl-4 text-sm">
+                <li><Link href="/docs/enablement-guide" className="block py-1 text-slate-400 hover:text-blue-400 transition-colors">Enablement Guide</Link></li>
+                <li><Link href="/docs/trial-experience" className="block py-1 text-slate-400 hover:text-blue-400 transition-colors">Trial Experience</Link></li>
+                <li><Link href="/docs/workload-enablement" className="block py-1 text-slate-400 hover:text-blue-400 transition-colors">Workload Enablement</Link></li>
+                <li><Link href="/docs/user-guide" className="block py-1 text-slate-400 hover:text-blue-400 transition-colors">User Guide</Link></li>
               </ul>
             </div>
 
@@ -60,11 +65,11 @@ export default function DocsPage() {
                 <div className="w-2 h-2 rounded-full bg-purple-500"></div>
                 Product Info
               </h4>
-              <ul className="space-y-1.5 border-l border-white/5 ml-1 pl-4 text-sm">
-                <li><a href="/docs/whitepaper" className="block py-1 text-slate-400 hover:text-purple-400 transition-colors">The Insight Agent</a></li>
-                <li><a href="/docs/vs-fabric" className="block py-1 text-slate-400 hover:text-purple-400 transition-colors">Karl vs Fabric</a></li>
-                <li><a href="/docs/purchasing-flow" className="block py-1 text-slate-400 hover:text-purple-400 transition-colors">Purchasing Flow</a></li>
-                <li><a href="/docs/pricing" className="block py-1 text-slate-400 hover:text-purple-400 transition-colors">Pricing</a></li>
+              <ul className="flex flex-col gap-1.5 border-l border-white/5 ml-1 pl-4 text-sm">
+                <li><Link href="/docs/whitepaper" className="block py-1 text-slate-400 hover:text-purple-400 transition-colors">The Insight Agent</Link></li>
+                <li><Link href="/docs/vs-fabric" className="block py-1 text-slate-400 hover:text-purple-400 transition-colors">Karl vs Fabric</Link></li>
+                <li><Link href="/docs/purchasing-flow" className="block py-1 text-slate-400 hover:text-purple-400 transition-colors">Purchasing Flow</Link></li>
+                <li><Link href="/docs/pricing" className="block py-1 text-slate-400 hover:text-purple-400 transition-colors">Pricing</Link></li>
               </ul>
             </div>
 
@@ -74,10 +79,10 @@ export default function DocsPage() {
                 <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
                 Security
               </h4>
-              <ul className="space-y-1.5 border-l border-white/5 ml-1 pl-4 text-sm">
-                <li><a href="/docs/security-document" className="block py-1 text-slate-400 hover:text-emerald-400 transition-colors">Security Overview</a></li>
-                <li><a href="/docs/fabric-plan" className="block py-1 text-slate-400 hover:text-emerald-400 transition-colors">Fabric Plan</a></li>
-                <li><a href="/docs/api-permissions" className="block py-1 text-slate-400 hover:text-emerald-400 transition-colors">API Permissions</a></li>
+              <ul className="flex flex-col gap-1.5 border-l border-white/5 ml-1 pl-4 text-sm">
+                <li><Link href="/docs/security-document" className="block py-1 text-slate-400 hover:text-emerald-400 transition-colors">Security Overview</Link></li>
+                <li><Link href="/docs/fabric-plan" className="block py-1 text-slate-400 hover:text-emerald-400 transition-colors">Fabric Plan</Link></li>
+                <li><Link href="/docs/api-permissions" className="block py-1 text-slate-400 hover:text-emerald-400 transition-colors">API Permissions</Link></li>
               </ul>
             </div>
           </nav>
@@ -107,37 +112,37 @@ export default function DocsPage() {
               
               <div className="grid gap-6 sm:grid-cols-2">
                 
-                <a href="/docs/enablement-guide" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-blue-500/50 hover:to-blue-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(59,130,246,0.3)]">
+                <Link href="/docs/enablement-guide" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-blue-500/50 hover:to-blue-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(59,130,246,0.3)]">
                   <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-[50px] rounded-full group-hover:bg-blue-500/10 transition-all"></div>
                     <h3 className="text-lg font-semibold text-slate-200 mb-3 group-hover:text-blue-400 transition-colors">Karl Enablement Guide</h3>
                     <p className="text-sm text-slate-400 flex-1 leading-relaxed">Pre-requisite guide outlining the Workload Setup required for Guest Tenants before enabling Karl.</p>
                   </div>
-                </a>
+                </Link>
 
-                <a href="/docs/trial-experience" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-blue-500/50 hover:to-blue-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(59,130,246,0.3)]">
+                <Link href="/docs/trial-experience" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-blue-500/50 hover:to-blue-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(59,130,246,0.3)]">
                   <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-[50px] rounded-full group-hover:bg-blue-500/10 transition-all"></div>
                     <h3 className="text-lg font-semibold text-slate-200 mb-3 group-hover:text-blue-400 transition-colors">Trial Experience Document</h3>
                     <p className="text-sm text-slate-400 flex-1 leading-relaxed">Comprehensive Trial Experience Guide demonstrating the initial setup and expected flows during the trial period.</p>
                   </div>
-                </a>
+                </Link>
 
-                <a href="/docs/workload-enablement" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-blue-500/50 hover:to-blue-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(59,130,246,0.3)]">
+                <Link href="/docs/workload-enablement" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-blue-500/50 hover:to-blue-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(59,130,246,0.3)]">
                   <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-[50px] rounded-full group-hover:bg-blue-500/10 transition-all"></div>
                     <h3 className="text-lg font-semibold text-slate-200 mb-3 group-hover:text-blue-400 transition-colors">Workload Enablement</h3>
                     <p className="text-sm text-slate-400 flex-1 leading-relaxed">Technical specifications and steps required for configuring workload enablement across environments.</p>
                   </div>
-                </a>
+                </Link>
 
-                <a href="/docs/user-guide" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-blue-500/50 hover:to-blue-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(59,130,246,0.3)]">
+                <Link href="/docs/user-guide" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-blue-500/50 hover:to-blue-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(59,130,246,0.3)]">
                   <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 blur-[50px] rounded-full group-hover:bg-blue-500/10 transition-all"></div>
                     <h3 className="text-lg font-semibold text-slate-200 mb-3 group-hover:text-blue-400 transition-colors">Product Docs - User Guide</h3>
                     <p className="text-sm text-slate-400 flex-1 leading-relaxed">A comprehensive user guide outlining the complete lifecycle from trial access to full product adoption.</p>
                   </div>
-                </a>
+                </Link>
 
               </div>
             </section>
@@ -153,37 +158,37 @@ export default function DocsPage() {
               
               <div className="grid gap-6 sm:grid-cols-2">
                 
-                <a href="/docs/whitepaper" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-purple-500/50 hover:to-purple-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(168,85,247,0.3)]">
+                <Link href="/docs/whitepaper" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-purple-500/50 hover:to-purple-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(168,85,247,0.3)]">
                   <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-[50px] rounded-full group-hover:bg-purple-500/10 transition-all"></div>
                     <h3 className="text-lg font-semibold text-slate-200 mb-3 group-hover:text-purple-400 transition-colors">The Insight Agent</h3>
                     <p className="text-sm text-slate-400 flex-1 leading-relaxed">Deep dive whitepaper exploring the architecture, capabilities, and benefits of Karl as an Insight Agent.</p>
                   </div>
-                </a>
+                </Link>
 
-                <a href="/docs/vs-fabric" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-purple-500/50 hover:to-purple-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(168,85,247,0.3)]">
+                <Link href="/docs/vs-fabric" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-purple-500/50 hover:to-purple-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(168,85,247,0.3)]">
                   <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-[50px] rounded-full group-hover:bg-purple-500/10 transition-all"></div>
                     <h3 className="text-lg font-semibold text-slate-200 mb-3 group-hover:text-purple-400 transition-colors">Karl vs Fabric Data Agent</h3>
                     <p className="text-sm text-slate-400 flex-1 leading-relaxed">A detailed comparison between Karl and the Microsoft Fabric Data Agent, highlighting key differentiators.</p>
                   </div>
-                </a>
+                </Link>
 
-                <a href="/docs/purchasing-flow" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-purple-500/50 hover:to-purple-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(168,85,247,0.3)]">
+                <Link href="/docs/purchasing-flow" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-purple-500/50 hover:to-purple-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(168,85,247,0.3)]">
                   <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-[50px] rounded-full group-hover:bg-purple-500/10 transition-all"></div>
                     <h3 className="text-lg font-semibold text-slate-200 mb-3 group-hover:text-purple-400 transition-colors">SaaS Purchasing Flow</h3>
                     <p className="text-sm text-slate-400 flex-1 leading-relaxed">Documentation explaining the SaaS purchasing workflow, onboarding steps, and provisioning for Karl.</p>
                   </div>
-                </a>
+                </Link>
 
-                <a href="/docs/pricing" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-purple-500/50 hover:to-purple-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(168,85,247,0.3)]">
+                <Link href="/docs/pricing" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-purple-500/50 hover:to-purple-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(168,85,247,0.3)]">
                   <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-[50px] rounded-full group-hover:bg-purple-500/10 transition-all"></div>
                     <h3 className="text-lg font-semibold text-slate-200 mb-3 group-hover:text-purple-400 transition-colors">Karl Pricing</h3>
                     <p className="text-sm text-slate-400 flex-1 leading-relaxed">Details on Pricing and Credits for Karl usage, including tier breakdowns and billing models.</p>
                   </div>
-                </a>
+                </Link>
 
               </div>
             </section>
@@ -199,29 +204,29 @@ export default function DocsPage() {
               
               <div className="grid gap-6 sm:grid-cols-2">
                 
-                <a href="/docs/security-document" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-emerald-500/50 hover:to-emerald-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(16,185,129,0.3)]">
+                <Link href="/docs/security-document" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-emerald-500/50 hover:to-emerald-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(16,185,129,0.3)]">
                   <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-[50px] rounded-full group-hover:bg-emerald-500/10 transition-all"></div>
                     <h3 className="text-lg font-semibold text-slate-200 mb-3 group-hover:text-emerald-400 transition-colors">Karl Security Document</h3>
                     <p className="text-sm text-slate-400 flex-1 leading-relaxed">Comprehensive Security Document outlining compliance, infrastructure security, and data protection policies.</p>
                   </div>
-                </a>
+                </Link>
 
-                <a href="/docs/fabric-plan" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-emerald-500/50 hover:to-emerald-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(16,185,129,0.3)]">
+                <Link href="/docs/fabric-plan" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-emerald-500/50 hover:to-emerald-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(16,185,129,0.3)]">
                   <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-[50px] rounded-full group-hover:bg-emerald-500/10 transition-all"></div>
                     <h3 className="text-lg font-semibold text-slate-200 mb-3 group-hover:text-emerald-400 transition-colors">Fabric Plan Documentation</h3>
                     <p className="text-sm text-slate-400 flex-1 leading-relaxed">Technical documentation covering the integration, deployment, and security of the Fabric Plan within Karl.</p>
                   </div>
-                </a>
+                </Link>
 
-                <a href="/docs/api-permissions" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-emerald-500/50 hover:to-emerald-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(16,185,129,0.3)] sm:col-span-2 lg:col-span-1">
+                <Link href="/docs/api-permissions" className="group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 hover:from-emerald-500/50 hover:to-emerald-500/10 transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_8px_32px_-10px_rgba(16,185,129,0.3)] sm:col-span-2 lg:col-span-1">
                   <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 blur-[50px] rounded-full group-hover:bg-emerald-500/10 transition-all"></div>
                     <h3 className="text-lg font-semibold text-slate-200 mb-3 group-hover:text-emerald-400 transition-colors">API Permissions</h3>
                     <p className="text-sm text-slate-400 flex-1 leading-relaxed">Detailed security justification and data governance rules regarding API access and permission structures.</p>
                   </div>
-                </a>
+                </Link>
 
               </div>
             </section>
@@ -230,7 +235,7 @@ export default function DocsPage() {
         </main>
 
         {/* Right Sidebar (Table of Contents) */}
-        <aside className="hidden xl:block w-[240px] shrink-0 sticky top-[68px] h-[calc(100vh-68px)] overflow-y-auto scrollbar-hide py-12 px-6 border-l border-white/5">
+        <aside className="hidden xl:block shrink-0 sticky top-[68px] h-[calc(100vh-68px)] w-[240px] overflow-y-auto py-12 px-6 border-l border-white/5">
           <h4 className="text-xs font-bold text-slate-100 uppercase tracking-widest mb-6">On this page</h4>
           <nav className="relative flex flex-col gap-1 text-sm text-slate-400">
             <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-white/5"></div>
