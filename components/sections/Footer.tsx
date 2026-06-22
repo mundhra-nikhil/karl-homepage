@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 
 /**
  * Footer — Replicates the Kanerika main footer structure exactly.
@@ -15,12 +14,11 @@ export default function Footer() {
 
           {/* Logo */}
           <div className="footer-logo-wrap">
-            <Image
-              src="https://kanerika.com/wp-content/uploads/2024/05/white-kanerika-Logo.svg"
+            <img
+              src="/images/footer/white-kanerika-Logo.svg"
               alt="Global Tech Consulting Firm | AI, Analytics and Automation | Kanerika"
               width={160}
               height={54}
-              unoptimized
             />
           </div>
 
@@ -173,16 +171,16 @@ export default function Footer() {
           <div className="footer-badges-row">
             <div className="footer-badges-group">
               <a href="https://www.goodfirms.co/company/kanerika-inc" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/GoodsFirms.svg" alt="GoodsFirms" width={0} height={0} style={{ height: "42px", width: "auto" }} unoptimized />
+                <img src="/images/footer/GoodsFirms.svg" alt="GoodsFirms" style={{ height: "42px", width: "auto" }} />
               </a>
               <a href="https://pars.cmmiinstitute.com/appraisals/71370" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/CMMI.svg" alt="CMMI" width={0} height={0} style={{ height: "42px", width: "auto" }} unoptimized />
+                <img src="/images/footer/CMMI.svg" alt="CMMI" style={{ height: "42px", width: "auto" }} />
               </a>
               <a href="https://clutch.co/profile/kanerika" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Clutch-Light.svg" alt="Clutch" width={0} height={0} style={{ height: "42px", width: "auto" }} unoptimized />
+                <img src="/images/footer/Clutch-Light.svg" alt="Clutch" style={{ height: "42px", width: "auto" }} />
               </a>
               <a href="https://www.capterra.in/software/1062440/flip" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Capterra-Light.svg" alt="Capterra" width={0} height={0} style={{ height: "42px", width: "auto" }} unoptimized />
+                <img src="/images/footer/Capterra-Light.svg" alt="Capterra" style={{ height: "42px", width: "auto" }} />
               </a>
             </div>
 
@@ -190,16 +188,16 @@ export default function Footer() {
 
             <div className="footer-badges-group">
               <a href="https://www.glassdoor.co.in/Reviews/Kanerika-Software-Reviews-E1319224.htm" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Glassdoor-Logo.svg" alt="Glassdoor" width={0} height={0} style={{ height: "42px", width: "auto" }} unoptimized />
+                <img src="/images/footer/Glassdoor-Logo.svg" alt="Glassdoor" style={{ height: "42px", width: "auto" }} />
               </a>
               <a href="https://www.g2.com/sellers/kanerika" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Asset-20-1.svg" alt="G2 badge" width={0} height={0} style={{ height: "52px", width: "auto" }} unoptimized />
+                <img src="/images/footer/Asset-20-1.svg" alt="G2 badge" style={{ height: "52px", width: "auto" }} />
               </a>
               <a href="https://www.50pros.com/agency/kanerika?utm_source=widget&utm_medium=embed&utm_campaign=global-award" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/50PROS.svg" alt="50PROS" width={0} height={0} style={{ height: "52px", width: "auto" }} unoptimized />
+                <img src="/images/footer/50PROS.svg" alt="50PROS" style={{ height: "52px", width: "auto" }} />
               </a>
               <a href="https://www.greatplacetowork.in/great/company/kanerika-inc" target="_blank" rel="noopener noreferrer">
-                <Image src="https://kanerika.com/wp-content/uploads/2024/05/Great-Place-To-Work.svg" alt="Great Place To Work" width={0} height={0} style={{ height: "42px", width: "auto" }} unoptimized />
+                <img src="/images/footer/Great-Place-To-Work.svg" alt="Great Place To Work" style={{ height: "42px", width: "auto" }} />
               </a>
             </div>
           </div>

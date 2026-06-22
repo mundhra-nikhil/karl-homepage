@@ -22,7 +22,7 @@ export default function Nav() {
         <li><a href="#">Platform</a></li>
         <li><a href="#">Solutions</a></li>
         <li><a href="#">Security</a></li>
-        <li><a href="#">Resources</a></li>
+        <li><a href="/docs">Resources</a></li>
         <li><a href="#">About</a></li>
       </ul>
 
