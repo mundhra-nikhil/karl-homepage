@@ -1,12 +1,15 @@
 @import "tailwindcss";
 @source "../app";
+@source "../components";
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 html {
@@ -128,6 +131,14 @@ nav {
   justify-content: space-between;
   padding: 0 48px;
   height: 68px;
+}
+
+.docs-nav-wrapper nav {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  z-index: auto;
 }
 
 .nav-logo {
@@ -1264,17 +1275,181 @@ nav {
 }
 
 /* Documentation Content Styles */
-.docs-content { line-height: 1.7; color: #d1d5db; }
-.docs-content h1 { font-size: 2.25rem; font-weight: 800; color: #fff; margin-bottom: 1.5rem; margin-top: 2rem; }
-.docs-content h2 { font-size: 1.875rem; font-weight: 700; color: #fff; margin-bottom: 1.25rem; margin-top: 2rem; border-bottom: 1px solid #27272a; padding-bottom: 0.5rem; }
-.docs-content h3 { font-size: 1.5rem; font-weight: 600; color: #e4e4e7; margin-bottom: 1rem; margin-top: 1.5rem; }
-.docs-content h4 { font-size: 1.25rem; font-weight: 600; color: #e4e4e7; margin-bottom: 0.75rem; margin-top: 1.25rem; }
-.docs-content p { margin-bottom: 1.25rem; }
-.docs-content ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.25rem; }
-.docs-content ol { list-style-type: decimal; padding-left: 1.5rem; margin-bottom: 1.25rem; }
-.docs-content li { margin-bottom: 0.5rem; }
-.docs-content a { color: #60a5fa; text-decoration: none; }
-.docs-content a:hover { text-decoration: underline; }
-.docs-content table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
-.docs-content th, .docs-content td { border: 1px solid #3f3f46; padding: 0.75rem; text-align: left; }
-.docs-content th { background-color: #27272a; color: #fff; font-weight: 600; }
+.docs-content {
+  line-height: 1.75;
+  color: #d1d5db;
+}
+
+.docs-content h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  margin-top: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.docs-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f4f4f5;
+  margin-bottom: 1rem;
+  margin-top: 2.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.docs-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #e4e4e7;
+  margin-bottom: 0.75rem;
+  margin-top: 2rem;
+}
+
+.docs-content h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #a1a1aa;
+  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.docs-content p {
+  margin-bottom: 1.25rem;
+}
+
+.docs-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.docs-content ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.docs-content li {
+  margin-bottom: 0.5rem;
+}
+
+.docs-content a {
+  color: #60a5fa;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(96, 165, 250, 0.3);
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.docs-content a:hover {
+  color: #93c5fd;
+  border-bottom-color: rgba(147, 197, 253, 0.5);
+}
+
+.docs-content strong,
+.docs-content b {
+  color: #f4f4f5;
+  font-weight: 600;
+}
+
+.docs-content em,
+.docs-content i {
+  color: #a1a1aa;
+}
+
+/* Inline code */
+.docs-content code {
+  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  font-size: 0.875em;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  color: #a5b4fc;
+}
+
+/* Code blocks */
+.docs-content pre {
+  background: #111113;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.docs-content pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: #e2e8f0;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+/* Blockquotes */
+.docs-content blockquote {
+  border-left: 3px solid rgba(96, 165, 250, 0.5);
+  background: rgba(96, 165, 250, 0.05);
+  border-radius: 0 8px 8px 0;
+  padding: 0.875rem 1.25rem;
+  margin: 1.5rem 0;
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.docs-content blockquote p {
+  margin-bottom: 0;
+}
+
+/* Horizontal rule */
+.docs-content hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 2rem 0;
+}
+
+/* Tables */
+.docs-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.docs-content th,
+.docs-content td {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.docs-content th {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #f4f4f5;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.docs-content td {
+  color: #a1a1aa;
+}
+
+.docs-content tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
+  color: #d1d5db;
+}
+
+/* Images */
+.docs-content img {
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 1rem 0;
+}

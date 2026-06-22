@@ -30,7 +30,7 @@ export default function DocsCardGrid({ category }: DocsCardGridProps) {
           <Link
             key={article.slug}
             href={`/docs/${article.slug}`}
-            className={`group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 ${styles.cardFrom} ${styles.cardTo} transition-all duration-500 hover:-translate-y-1 ${styles.cardShadow} ${article.wide ? "sm:col-span-2 lg:col-span-1" : ""}`}
+            className={`group relative p-[1px] rounded-2xl bg-gradient-to-b from-white/10 to-white/5 ${styles.cardFrom} ${styles.cardTo} transition-all duration-500 hover:-translate-y-1 ${styles.cardShadow} ${article.wide ? "col-span-2" : ""}`}
           >
             <div className="relative h-full flex flex-col rounded-[15px] bg-[#0A0A0A] p-6 transition-colors">
               <div

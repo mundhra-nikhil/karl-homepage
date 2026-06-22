@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Nav from "@/components/ui/Nav";
 import Footer from "@/components/sections/Footer";
+import DocsSidebar from "@/components/docs/DocsSidebar";
 
 interface DocLayoutProps {
   children: React.ReactNode;
@@ -8,18 +9,22 @@ interface DocLayoutProps {
 
 export default function DocLayout({ children }: DocLayoutProps) {
   return (
-    <div className="flex flex-col min-h-screen bg-zinc-950 text-slate-200">
-      <div className="sticky top-0 h-[68px] z-50 bg-[#0a0a0a] border-b border-zinc-800">
+    <div className="flex flex-col min-h-screen bg-[#050505] text-slate-300 selection:bg-blue-500/30 font-sans">
+      <div className="docs-nav-wrapper sticky top-0 h-[68px] z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5">
         <Nav />
       </div>
-      <div className="flex flex-1 mx-auto w-full max-w-screen-2xl relative">
-        <main className="flex-1 px-6 py-10 md:px-10 lg:px-12 max-w-4xl mx-auto">
+
+      <div className="flex flex-1 w-full max-w-7xl mx-auto relative">
+        <DocsSidebar />
+
+        <main className="flex-1 min-w-0 px-6 py-12 md:px-12 lg:px-16">
+          {/* Back to index link */}
           <Link
             href="/docs"
-            className="text-blue-400 hover:text-blue-300 text-sm flex items-center mb-8"
+            className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-200 transition-colors mb-10 group"
           >
             <svg
-              className="w-4 h-4 mr-1"
+              className="w-4 h-4 transition-transform group-hover:-translate-x-0.5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -33,9 +38,13 @@ export default function DocLayout({ children }: DocLayoutProps) {
             </svg>
             Back to Manuals
           </Link>
-          {children}
+
+          <div className="max-w-3xl">
+            {children}
+          </div>
         </main>
       </div>
+
       <Footer />
     </div>
   );

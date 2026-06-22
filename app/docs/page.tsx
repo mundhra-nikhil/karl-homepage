@@ -33,7 +33,7 @@ export default function DocsPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#050505] text-slate-300 selection:bg-blue-500/30 font-sans">
-      <div className="sticky top-0 h-[68px] z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5">
+      <div className="docs-nav-wrapper sticky top-0 h-[68px] z-50 bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5">
         <Nav />
       </div>
 
@@ -42,7 +42,7 @@ export default function DocsPage() {
 
         <main className="flex-1 min-w-0 px-6 py-12 md:px-12 lg:px-16 xl:px-24">
           <div className="max-w-4xl mx-auto">
-            <div className="relative mb-20 mt-8">
+            <div className="relative mb-20 mt-8 overflow-hidden">
               <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-500/20 blur-[100px] rounded-full pointer-events-none"></div>
               <h1 className="text-5xl md:text-6xl font-black text-white mb-6 tracking-tight">
                 Karl{" "}
