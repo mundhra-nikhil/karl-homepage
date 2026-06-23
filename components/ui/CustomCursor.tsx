@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { useCustomCursor } from "@/lib/useCustomCursor";
+import { useCustomCursor } from "@/hooks/useCustomCursor";
 
 interface CustomCursorProps {
   /** Pass current announcement visibility so the hook re-queries interactive
