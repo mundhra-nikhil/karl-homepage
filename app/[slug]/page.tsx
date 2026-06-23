@@ -8,6 +8,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import Nav from "@/components/ui/Nav";
 import Footer from "@/components/sections/Footer";
+import OtherSectors from "@/components/sections/OtherSectors";
 
 // Set up Google Fonts
 const playfair = Playfair_Display({
@@ -328,6 +329,9 @@ export default async function IndustryPage({ params }: PageProps) {
             </div>
           </div>
         </section>
+
+        {/* Explore Other Sectors Carousel */}
+        <OtherSectors currentSlug={slug} />
 
         {/* CTA Footer Bar */}
         <section className="w-full bg-[#0A0A0A] text-white py-16">
