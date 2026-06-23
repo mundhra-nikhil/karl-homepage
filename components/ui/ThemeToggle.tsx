@@ -13,13 +13,13 @@ export default function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    return <div className="w-8 h-8" />; // Placeholder to avoid layout shift
+    return <div className="w-[38px] h-[38px]" />; // Placeholder to avoid layout shift
   }
 
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="flex items-center justify-center w-8 h-8 rounded-full bg-slate-200 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 transition-colors text-slate-700 dark:text-slate-300"
+      className="flex items-center justify-center w-[38px] h-[38px] rounded-md bg-slate-200 dark:bg-white/10 hover:bg-slate-300 dark:hover:bg-white/20 border border-slate-300/50 dark:border-white/10 transition-colors text-slate-700 dark:text-slate-300"
       aria-label="Toggle Dark Mode"
     >
       {theme === "dark" ? (

@@ -1,5 +1,6 @@
 import DocsSearch from "@/components/docs/DocsSearch";
 import ThemeToggle from "@/components/ui/ThemeToggle";
+import Link from "next/link";
 
 /**
  * Nav — top navigation bar.
@@ -11,19 +12,19 @@ interface NavProps {
 export default function Nav({ showDocsSearch = false }: NavProps) {
   return (
     <nav>
-      <a href="/" className="nav-logo">
+      <Link href="/" className="nav-logo">
         <img src="/karl-logo.png" alt="Karl Logo" className="w-[30px] h-[30px] rounded-md object-contain bg-white" />
         <span className="wordmark">Karl</span>
         {showDocsSearch && (
           <span className="text-slate-400 font-medium text-lg hidden sm:inline-block">Docs</span>
         )}
-      </a>
+      </Link>
 
       <ul className="nav-links">
         <li><a href="#">Platform</a></li>
         <li><a href="#">Solutions</a></li>
         <li><a href="#">Security</a></li>
-        <li><a href="/docs">Resources</a></li>
+        <li><Link href="/docs">Resources</Link></li>
         <li><a href="#">About</a></li>
       </ul>
 

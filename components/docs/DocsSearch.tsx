@@ -131,7 +131,7 @@ export default function DocsSearch() {
       {/* Search Trigger Button */}
       <button 
         type="button"
-        className="mr-2 lg:mr-6 flex items-center gap-2 px-[18px] py-[8px] bg-docs-active-link-bg/60 hover:bg-docs-active-link-bg border border-docs-border-main rounded-md transition-colors duration-200 group"
+        className="flex items-center gap-2 px-[18px] py-[8px] bg-docs-active-link-bg/60 hover:bg-docs-active-link-bg border border-docs-border-main rounded-md transition-colors duration-200 group"
         onClick={() => {
           setIsOpen(true);
           setActiveIndex(0);
