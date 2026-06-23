@@ -22,7 +22,7 @@ export default function DocsCardGrid({ category }: DocsCardGridProps) {
         >
           <CategoryIcon categoryId={category.id} />
         </div>
-        <h2 className="text-3xl font-bold text-docs-text-primary transition-colors duration-200">{category.title}</h2>
+        <h2 className="text-3xl font-light text-docs-text-primary transition-colors duration-200">{category.title}</h2>
       </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
@@ -33,7 +33,7 @@ export default function DocsCardGrid({ category }: DocsCardGridProps) {
             className={`group relative flex flex-col rounded-2xl border border-docs-card-border bg-docs-bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md ${styles.cardBorderHover} ${article.wide ? "col-span-2" : ""}`}
           >
             <h3
-              className={`text-lg font-semibold text-docs-text-primary mb-3 ${styles.cardTitleHover} transition-colors duration-200`}
+              className={`text-lg font-light text-docs-text-primary mb-3 ${styles.cardTitleHover} transition-colors duration-200`}
             >
               {article.title}
             </h3>

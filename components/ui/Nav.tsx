@@ -18,9 +18,11 @@ export default function Nav({ showDocsSearch = false }: NavProps) {
   return (
     <nav>
       <Link href="/" className="nav-logo">
-        <img src="/Karl logo.svg" alt="Karl Logo" className="h-[30px] w-auto object-contain" />
+        <span className="font-extrabold text-2xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 dark:from-rose-400 dark:via-purple-400 dark:to-blue-400">
+          Karl
+        </span>
         {showDocsSearch && (
-          <span className="text-black dark:text-white font-bold text-xl hidden sm:inline-block">Docs</span>
+          <span className="text-black dark:text-white font-bold text-2xl hidden sm:inline-block">Docs</span>
         )}
       </Link>
 
