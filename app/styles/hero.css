@@ -54,6 +54,7 @@ nav {
   justify-content: space-between;
   padding: 0 48px;
   height: 68px;
+  --nav-font-size: 14px;
 }
 
 .docs-nav-wrapper nav {
@@ -100,7 +101,7 @@ nav {
 }
 
 .nav-links a {
-  font-size: 14px;
+  font-size: var(--nav-font-size);
   font-weight: 500;
   color: rgba(255, 255, 255, .7);
   text-decoration: none;
@@ -400,4 +401,77 @@ nav {
 .bb-right a:hover {
   color: #fff;
   border-color: #555;
+}
+
+/* Contact Us Elementor Button Styles */
+.elementor-115036 .elementor-element.elementor-element-6a629555 .elementor-button {
+    padding: 10px 16px 10px 16px;
+}
+.elementor-element.elementor-button-info .elementor-button {
+    background-color: #5bc0de;
+}
+.elementor-button-info .elementor-button {
+    transition: all 0.5s ease-in-out;
+}
+.elementor-button-info .elementor-button, #flip-sale a {
+    border-radius: 8px;
+    background: linear-gradient(79.86deg, #8C48FF -10.68%, #FF5F3D 96.14%);
+    font-family: "Space Grotesk", Sans-serif !important;
+    padding: 16px 24px;
+    font-size: var(--nav-font-size) !important;
+    font-style: normal;
+    font-weight: 700 !important;
+    line-height: 1.5rem !important;
+}
+.elementor-widget-button .elementor-button {
+    font-family: "Space Grotesk", Sans-serif !important;
+    letter-spacing: 1px;
+    text-transform: none !important;
+}
+.elementor-kit-6 button,
+.elementor-kit-6 input[type="button"],
+.elementor-kit-6 input[type="submit"],
+.elementor-kit-6 .elementor-button,
+.elementor-button:focus,
+.elementor-button:hover,
+.elementor-button:visited {
+    color: #fff;
+}
+.elementor-kit-6 a,
+.elementor a {
+    box-shadow: none;
+    text-decoration: none;
+}
+
+/* Flexbox alignment for Contact Us button */
+.lets-talk .elementor-button {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.lets-talk .elementor-button-content-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lets-talk .elementor-button-icon {
+  display: flex;
+  align-items: center;
+}
+
+.lets-talk .elementor-button-icon svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* Theme Toggle Button Specific Overrides to bypass general .elementor-kit-6 button text color rules */
+.elementor-kit-6 button.theme-toggle-btn {
+  color: var(--docs-text-muted) !important;
+}
+
+.elementor-kit-6 button.theme-toggle-btn:hover {
+  color: var(--docs-text-primary) !important;
 }
