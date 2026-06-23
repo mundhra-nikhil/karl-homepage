@@ -1,0 +1,155 @@
+:root {
+  --docs-bg-page: #ffffff;
+  --docs-bg-sidebar: #fafaf9;
+  --docs-text-primary: #1c1917;
+  --docs-text-secondary: #44403c;
+  --docs-text-muted: #78716c;
+  --docs-border-main: #e7e5e4;
+  --docs-active-link-bg: #f5f5f4;
+  --docs-active-link-text: #1c1917;
+  --docs-accent: #2563eb;
+  --docs-code-bg: rgba(0, 0, 0, 0.04);
+  --docs-code-border: rgba(0, 0, 0, 0.08);
+  --docs-code-text: #4f46e5;
+  --docs-pre-bg: #f5f5f4;
+  --docs-pre-border: #e7e5e4;
+  --docs-blockquote-bg: rgba(37, 99, 235, 0.05);
+  --docs-blockquote-border: rgba(37, 99, 235, 0.5);
+  --docs-table-border: rgba(0, 0, 0, 0.1);
+  --docs-table-th-bg: rgba(0, 0, 0, 0.02);
+  --docs-table-tr-even-bg: rgba(0, 0, 0, 0.01);
+  --docs-table-tr-hover-bg: rgba(0, 0, 0, 0.04);
+  --docs-bg-card: #ffffff;
+  --docs-card-border: #e7e5e4;
+  --docs-img-bg: #ffffff;
+  --docs-header-bg: rgba(10, 10, 10, 0.8);
+  --docs-header-border: rgba(255, 255, 255, 0.05);
+  --docs-glow-bg: rgba(59, 130, 246, 0.08);
+
+  /* Font Styling Constants */
+  --docs-font-sans: Geist, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --docs-font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --docs-font-size-base: 14px;
+  --docs-line-height-base: 1.5;
+}
+
+.dark {
+  --docs-bg-page: #0a0a0a;
+  --docs-bg-sidebar: #0f0f0f;
+  --docs-text-primary: #f3f4f6;
+  --docs-text-secondary: #9ca3af;
+  --docs-text-muted: #6b7280;
+  --docs-border-main: rgba(255, 255, 255, 0.08);
+  --docs-active-link-bg: rgba(255, 255, 255, 0.05);
+  --docs-active-link-text: #ffffff;
+  --docs-accent: #3b82f6;
+  --docs-code-bg: rgba(255, 255, 255, 0.07);
+  --docs-code-border: rgba(255, 255, 255, 0.1);
+  --docs-code-text: #a5b4fc;
+  --docs-pre-bg: #0f0f0f;
+  --docs-pre-border: rgba(255, 255, 255, 0.08);
+  --docs-blockquote-bg: rgba(96, 165, 250, 0.05);
+  --docs-blockquote-border: rgba(96, 165, 250, 0.5);
+  --docs-table-border: rgba(255, 255, 255, 0.1);
+  --docs-table-th-bg: rgba(255, 255, 255, 0.03);
+  --docs-table-tr-even-bg: rgba(255, 255, 255, 0.01);
+  --docs-table-tr-hover-bg: rgba(255, 255, 255, 0.05);
+  --docs-bg-card: #121214;
+  --docs-card-border: rgba(255, 255, 255, 0.08);
+  --docs-img-bg: #ffffff;
+  --docs-header-bg: rgba(10, 10, 10, 0.8);
+  --docs-header-border: rgba(255, 255, 255, 0.05);
+  --docs-glow-bg: rgba(59, 130, 246, 0.15);
+}
+
+@theme {
+  --color-docs-bg-page: var(--docs-bg-page);
+  --color-docs-bg-sidebar: var(--docs-bg-sidebar);
+  --color-docs-text-primary: var(--docs-text-primary);
+  --color-docs-text-secondary: var(--docs-text-secondary);
+  --color-docs-text-muted: var(--docs-text-muted);
+  --color-docs-border-main: var(--docs-border-main);
+  --color-docs-active-link-bg: var(--docs-active-link-bg);
+  --color-docs-active-link-text: var(--docs-active-link-text);
+  --color-docs-accent: var(--docs-accent);
+  --color-docs-bg-card: var(--docs-bg-card);
+  --color-docs-card-border: var(--docs-card-border);
+  --color-docs-header-bg: var(--docs-header-bg);
+  --color-docs-header-border: var(--docs-header-border);
+  --color-docs-glow-bg: var(--docs-glow-bg);
+
+  --font-sans: var(--docs-font-sans);
+  --font-mono: var(--docs-font-mono);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  font-family: var(--font-inter), system-ui, sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+}
+
+#abar-wrap {
+  position: relative;
+  z-index: 200;
+}
+
+#abar {
+  position: relative;
+  z-index: 300;
+  background: #111;
+  border-bottom: 1px solid #222;
+  text-align: center;
+  padding: 9px 48px;
+  font-size: 13px;
+  color: #777;
+}
+
+#abar a {
+  color: #ccc;
+  font-weight: 600;
+  margin-left: 6px;
+  text-decoration: none;
+}
+
+#abar a:hover {
+  color: #fff;
+}
+
+.aclose {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #444;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color .15s;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.aclose:hover {
+  color: #fff;
+}
