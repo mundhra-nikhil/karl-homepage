@@ -367,3 +367,123 @@
     gap: 12px;
   }
 }
+
+/* ==========================================================================
+   Light Theme overrides for Footer under docs-theme
+   ========================================================================== */
+
+/* Outer footer container */
+html:not(.dark) .docs-theme .kanerika-main-footer {
+  background: #fafaf9;
+  border-top: 1px solid var(--line);
+  color: #4b5563;
+}
+
+/* Border bottom of logo section */
+html:not(.dark) .docs-theme .footer-logo-section {
+  border-bottom: 1px solid var(--line);
+}
+
+/* Logo image: convert white SVG logo to dark/black */
+html:not(.dark) .docs-theme .footer-logo-wrap img {
+  filter: brightness(0);
+}
+
+/* Description text */
+html:not(.dark) .docs-theme .footer-desc {
+  color: #4b5563;
+}
+
+html:not(.dark) .docs-theme .footer-desc-accent {
+  color: #111827;
+}
+
+/* Newsletter label */
+html:not(.dark) .docs-theme .footer-news-label {
+  color: #111827;
+}
+
+/* Newsletter form fields */
+html:not(.dark) .docs-theme .footer-form-label {
+  color: #6b7280;
+}
+
+html:not(.dark) .docs-theme .footer-form-input {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  color: #111827;
+}
+
+html:not(.dark) .docs-theme .footer-form-input::placeholder {
+  color: #9ca3af;
+}
+
+html:not(.dark) .docs-theme .footer-form-input:focus {
+  border-color: #4b6cf7;
+}
+
+/* Social icons */
+html:not(.dark) .docs-theme .social-icon {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: #4b5563;
+}
+
+html:not(.dark) .docs-theme .social-icon:hover {
+  background: #4b6cf7;
+  border-color: #4b6cf7;
+  color: #fff;
+}
+
+/* Navigation links */
+html:not(.dark) .docs-theme .footer-link-section {
+  border-bottom: 1px solid var(--line);
+}
+
+html:not(.dark) .docs-theme .footer-col-heading {
+  color: #111827;
+}
+
+html:not(.dark) .docs-theme .footer-col-links a {
+  color: #4b5563;
+}
+
+html:not(.dark) .docs-theme .footer-col-links a:hover {
+  color: #111827;
+}
+
+/* Badges section */
+html:not(.dark) .docs-theme .footer-badges-row {
+  border-bottom: 1px solid var(--line);
+}
+
+html:not(.dark) .docs-theme .footer-badge-divider {
+  background: var(--line);
+}
+
+/* Make badges look uniform and clean on light background */
+html:not(.dark) .docs-theme .footer-badges-group a {
+  filter: grayscale(1) brightness(0.2) opacity(0.85);
+}
+
+html:not(.dark) .docs-theme .footer-badges-group a:hover {
+  filter: none;
+  opacity: 1;
+}
+
+/* Bottom copyright & legal links */
+html:not(.dark) .docs-theme .footer-copyright {
+  color: #6b7280;
+}
+
+html:not(.dark) .docs-theme .footer-legal-links li + li::before {
+  color: #d1d5db;
+}
+
+html:not(.dark) .docs-theme .footer-legal-links a {
+  color: #6b7280;
+}
+
+html:not(.dark) .docs-theme .footer-legal-links a:hover {
+  color: #111827;
+}

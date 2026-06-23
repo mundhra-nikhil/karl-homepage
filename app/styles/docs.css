@@ -362,3 +362,138 @@
   color: var(--docs-text-secondary);
   line-height: 1.5;
 }
+
+/* Header/Navigation Overrides for Karl Docs Pages */
+.docs-theme .wordmark {
+  color: var(--docs-text-primary);
+  transition: color 0.2s;
+}
+
+.docs-theme .nav-links a {
+  color: var(--docs-text-secondary);
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.docs-theme .nav-links a:hover {
+  color: var(--docs-text-primary);
+  background: var(--docs-active-link-bg);
+}
+
+.docs-theme .nav-links a.active {
+  color: var(--docs-text-primary);
+  font-weight: 700;
+}
+
+.docs-theme .n-login {
+  color: var(--docs-text-primary);
+  border-color: var(--docs-border-main);
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+.docs-theme .n-login:hover {
+  background: var(--docs-active-link-bg);
+  border-color: var(--docs-border-main);
+}
+
+.docs-theme .n-demo {
+  background: var(--docs-accent);
+  color: #ffffff;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.docs-theme .n-demo:hover {
+  opacity: 0.95;
+  background: var(--docs-accent);
+}
+
+/* Revert Navigation Colors in Dark Mode */
+.dark .docs-theme .wordmark,
+.docs-theme.dark .wordmark {
+  color: #ffffff;
+}
+
+.dark .docs-theme .nav-links a,
+.docs-theme.dark .nav-links a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark .docs-theme .nav-links a:hover,
+.docs-theme.dark .nav-links a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.dark .docs-theme .nav-links a.active,
+.docs-theme.dark .nav-links a.active {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.dark .docs-theme .n-login,
+.docs-theme.dark .n-login {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.dark .docs-theme .n-login:hover,
+.docs-theme.dark .n-login:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.dark .docs-theme .n-demo,
+.docs-theme.dark .n-demo {
+  background: #ffffff;
+  color: #000000;
+}
+
+.dark .docs-theme .n-demo:hover,
+.docs-theme.dark .n-demo:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Dropdown Overrides for Karl Docs Pages */
+.docs-theme .nav-dropdown-menu {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--docs-border-main);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.docs-theme .nav-links .nav-dropdown-menu a {
+  color: var(--docs-text-secondary);
+}
+
+.docs-theme .nav-links .nav-dropdown-menu a:hover {
+  color: var(--docs-text-primary);
+  background: var(--docs-active-link-bg);
+}
+
+.docs-theme .nav-links .nav-dropdown-menu a.active {
+  color: var(--docs-text-primary);
+  font-weight: 700;
+}
+
+/* Revert to Dark styles in Dark Mode Docs */
+.dark .docs-theme .nav-dropdown-menu,
+.docs-theme.dark .nav-dropdown-menu {
+  background: rgba(18, 18, 20, 0.95);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.dark .docs-theme .nav-links .nav-dropdown-menu a,
+.docs-theme.dark .nav-links .nav-dropdown-menu a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark .docs-theme .nav-links .nav-dropdown-menu a:hover,
+.docs-theme.dark .nav-links .nav-dropdown-menu a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.dark .docs-theme .nav-links .nav-dropdown-menu a.active,
+.docs-theme.dark .nav-links .nav-dropdown-menu a.active {
+  color: #ffffff;
+  font-weight: 700;
+}
