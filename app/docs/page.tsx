@@ -44,7 +44,7 @@ export default function DocsPage() {
           <div className="max-w-4xl mx-auto">
             <div className="relative mb-20 mt-8 overflow-hidden">
               <div className="absolute -top-10 -left-10 w-40 h-40 bg-docs-glow-bg blur-[100px] rounded-full pointer-events-none"></div>
-              <h1 className="text-5xl md:text-6xl font-black text-slate-900 dark:text-white mb-6 tracking-tight transition-colors duration-200">
+              <h1 className="text-5xl md:text-6xl font-light text-slate-900 dark:text-white mb-6 tracking-tight transition-colors duration-200">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 dark:from-rose-400 dark:via-purple-400 dark:to-blue-400">
                   Karl
                 </span>{" "}

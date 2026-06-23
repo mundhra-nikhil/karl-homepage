@@ -75,7 +75,7 @@
   --docs-glow-bg: var(--accent-soft);
 
   /* Font Styling Constants */
-  --docs-font-sans: Geist, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --docs-font-sans: var(--font-inter), Geist, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --docs-font-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --docs-font-size-base: 14px;
   --docs-line-height-base: 1.5;
