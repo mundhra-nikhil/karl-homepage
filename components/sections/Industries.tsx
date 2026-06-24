@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { industries } from "@/lib/data/industries";
 
 /**
@@ -118,7 +119,11 @@ export default function Industries() {
         <div className="industries-viewport">
           <div ref={trackRef} className="industries-track">
             {industries.map((industry) => (
-              <div key={industry.id} className="industry-card">
+              <Link
+                key={industry.id}
+                href={`/${industry.id}`}
+                className="industry-card cursor-pointer decoration-none"
+              >
                 {/* Image — 1:1 ratio, full-bleed */}
                 <div className="industry-card-image">
                   <Image
@@ -136,9 +141,7 @@ export default function Industries() {
                   <h3>{industry.name}</h3>
                   <p>{industry.description}</p>
                 </div>
-
-
-              </div>
+              </Link>
             ))}
           </div>
         </div>

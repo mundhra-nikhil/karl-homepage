@@ -253,12 +253,4 @@ If you prefer your own rules file, mirror the key conventions from **sections 1â
 
 ---
 
-### Next.js 16 / Turbopack Compilation Hang (OOM)
-
-- **Issue:** Next.js Turbopack compiler hangs indefinitely and spawns 50+ Node.js runtime processes, eventually running out of memory during `next dev`.
-- **Cause:** Importing massive raw HTML strings (e.g., via `dangerouslySetInnerHTML`) directly into `.tsx` components causes the TypeScript compiler to generate a massive Abstract Syntax Tree (AST), blowing up memory limits.
-- **Fix:** Move massive text/HTML strings into external `.json` files (e.g., `content.json`) and import the JSON object instead. Next.js processes JSON files significantly more efficiently than raw TSX strings, completely bypassing the AST memory limit.
-
----
-
-**Last updated:** 2026-06-19 | Verified against actual codebase
+**Last updated:** 2026-06-18 | Verified against actual codebase

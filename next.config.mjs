@@ -8,8 +8,6 @@ const nextConfig = {
       },
     ],
   },
-  // Allow access from network IP (10.0.3.124) in development
-  allowedDevOrigins: ["10.0.3.124"],
 };
 
 export default nextConfig;
