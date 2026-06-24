@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import matter from "gray-matter";
 import { marked } from "marked";
@@ -8,7 +9,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import Nav from "@/components/ui/Nav";
 import Footer from "@/components/sections/Footer";
-import OtherSectors from "@/components/sections/OtherSectors";
+import ExploreSectorsCarousel from "@/components/sections/ExploreSectorsCarousel";
 
 // Set up Google Fonts
 const playfair = Playfair_Display({
@@ -34,16 +35,38 @@ const VALID_SLUGS = [
   "retail",
 ];
 
+const getSectorImage = (slug: string): string => {
+  const extensions: Record<string, string> = {
+    automotive: "avif",
+    banking: "jpg",
+    healthcare: "avif",
+    insurance: "jpg",
+    logistics: "jpg",
+    manufacturing: "jpg",
+    pharma: "jpg",
+    retail: "jpg",
+  };
+  return `/industries/${slug}.${extensions[slug] || "jpg"}`;
+};
+
 interface SolutionsItem {
   title: string;
   description: string;
 }
 
-interface ParsedData {
+interface SectorInfo {
+  slug: string;
+  title: string;
+  description: string;
+  image: string;
+  sectorName: string;
+}
+
+interface ParsedSectorData {
   title: string;
   description: string;
   heroImage: string;
-  industryName: string;
+  sectorName: string;
   overview: string;
   whatWeDoItems: string[];
   keyOutcomesItems: string[];
@@ -52,7 +75,7 @@ interface ParsedData {
   ctaText: string;
 }
 
-function getIndustryData(slug: string): ParsedData {
+function getSectorData(slug: string): ParsedSectorData {
   const filePath = path.join(
     process.cwd(),
     "lib",
@@ -68,9 +91,9 @@ function getIndustryData(slug: string): ParsedData {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const { data, content } = matter(fileContent);
 
-  // Extract H1 header for industryName
+  // Extract H1 header for sectorName
   const matchH1 = content.match(/^#\s+(.*)$/m);
-  const industryName = matchH1 ? matchH1[1].trim() : data.title || slug;
+  const sectorName = matchH1 ? matchH1[1].trim() : data.title || slug;
 
   // Split content by "## " headings
   const parts = content.split(/\n##\s+/);
@@ -143,15 +166,15 @@ function getIndustryData(slug: string): ParsedData {
     title: data.title || "",
     description: data.description || "",
     heroImage: data.heroImage || "",
-    industryName,
+    sectorName,
     overview,
     whatWeDoItems,
     keyOutcomesItems,
     solutionsItems,
-    ctaTitle: ctaTitle || `Ready to Transform Your ${industryName} Operations?`,
+    ctaTitle: ctaTitle || `Ready to transform your ${sectorName} operations?`,
     ctaText:
       ctaText ||
-      "Talk to our experts to learn how we can help modernize your operations with AI.",
+      `Talk to our experts to learn how we can help modernize your ${sectorName.toLowerCase()} operations with AI.`,
   };
 }
 
@@ -171,21 +194,49 @@ export async function generateMetadata({
     return { title: "Page Not Found" };
   }
 
-  const data = getIndustryData(slug);
+  const data = getSectorData(slug);
   return {
     title: `${data.title} | Karl Solutions`,
     description: data.description,
   };
 }
 
-export default async function IndustryPage({ params }: PageProps) {
+export default async function SectorPage({ params }: PageProps) {
   const { slug } = await params;
 
   if (!VALID_SLUGS.includes(slug)) {
     notFound();
   }
 
-  const data = getIndustryData(slug);
+  const data = getSectorData(slug);
+
+  // Load data for all 8 sectors to feed the "Explore Other Sectors" carousel
+  const sectorsData: SectorInfo[] = VALID_SLUGS.map((s) => {
+    const filePath = path.join(
+      process.cwd(),
+      "lib",
+      "data",
+      "docs",
+      "content",
+      `${s}.md`
+    );
+    const fileContent = fs.readFileSync(filePath, "utf-8");
+    const { data: frontmatter, content: rawBody } = matter(fileContent);
+
+    const matchH1 = rawBody.match(/^#\s+(.*)$/m);
+    const sectorName = matchH1 ? matchH1[1].trim() : frontmatter.title || s;
+
+    return {
+      slug: s,
+      title: frontmatter.title || "",
+      description: frontmatter.description || "",
+      image: getSectorImage(s),
+      sectorName,
+    };
+  });
+
+  // Filter out the current sector to pass exactly 7 sectors to the carousel
+  const otherSectors = sectorsData.filter((s) => s.slug !== slug);
 
   // Parse HTML structures inside server component
   const parsedOverviewHtml = await marked.parse(data.overview);
@@ -204,7 +255,7 @@ export default async function IndustryPage({ params }: PageProps) {
         <section className="w-full max-w-[1100px] mx-auto px-6 pt-12 pb-16 md:py-20 flex flex-col justify-between min-h-[calc(100vh-200px)]">
           {/* Top Breadcrumb */}
           <div className="text-xs uppercase tracking-widest text-[#78716c] font-semibold mb-8 md:mb-12">
-            Industries / {data.industryName}
+            Sectors We Serve / {data.sectorName}
           </div>
 
           {/* Hero Section */}
@@ -225,15 +276,17 @@ export default async function IndustryPage({ params }: PageProps) {
               </a>
             </div>
 
-            {/* Right Side Column (Rounded dark card aspect 4:3, max 45% viewport width) */}
+            {/* Right Side Column (Rounded card aspect 4:3, max 45% viewport width) */}
             <div className="md:col-span-5 flex justify-center md:justify-end w-full">
-              <div className="w-full max-w-[450px] aspect-[4/3] rounded-2xl bg-[#1c1917] flex flex-col items-center justify-center text-[#78716c] p-6 text-center border border-slate-800/20">
-                <span className="font-mono text-xs uppercase tracking-wider text-slate-500 mb-1">
-                  Placeholder
-                </span>
-                <span className="text-sm font-semibold text-slate-400">
-                  heroImage coming soon
-                </span>
+              <div className="w-full max-w-[450px] aspect-[4/3] rounded-2xl overflow-hidden bg-[#1c1917] relative border border-slate-800/10 shadow-sm">
+                <Image
+                  src={getSectorImage(slug)}
+                  alt={`${data.sectorName} image`}
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 450px"
+                />
               </div>
             </div>
           </div>
@@ -255,7 +308,7 @@ export default async function IndustryPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* About / Overview Section */}
+        {/* Overview Section */}
         <section className="w-full py-20 border-b border-[#e7e5e4]">
           <div className="max-w-[1100px] mx-auto px-6">
             <h2 className="font-serif text-[28px] font-bold text-[#1c1917] mb-6">
@@ -331,14 +384,14 @@ export default async function IndustryPage({ params }: PageProps) {
         </section>
 
         {/* Explore Other Sectors Carousel */}
-        <OtherSectors currentSlug={slug} />
+        <ExploreSectorsCarousel sectors={otherSectors} />
 
         {/* CTA Footer Bar */}
         <section className="w-full bg-[#0A0A0A] text-white py-16">
           <div className="max-w-[1100px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="max-w-2xl text-left">
               <h2 className="font-serif text-[28px] md:text-[32px] font-bold mb-4 leading-tight text-white">
-                {data.ctaTitle}
+                Ready to transform your {data.sectorName} operations?
               </h2>
               <p className="text-[#a8a29e] text-[16px] leading-relaxed">
                 {data.ctaText}
