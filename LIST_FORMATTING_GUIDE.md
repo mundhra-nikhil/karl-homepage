@@ -24,11 +24,11 @@ To fix this, **all list items must be contained within a single `<ol>` tag**. An
 <ol class="list-decimal pl-6 mb-6 space-y-2 text-docs-text-secondary">
     <li>
         Step 1 text
-        <p class="mt-2"><img src="..." alt=""></p>
+        <p class="mt-2"><img src="..." alt="" /></p>
     </li>
     <li>
         Step 2 text
-        <p class="mt-2"><img src="..." alt=""></p>
+        <p class="mt-2"><img src="..." alt="" /></p>
     </li>
 </ol>
 ```
@@ -53,27 +53,23 @@ Use the following structure as the baseline template for Step 2 and all subseque
     
     <li>
         Go to the&nbsp;<strong class="font-semibold text-docs-text-primary">Workload Hub</strong>&nbsp;(you can find it in the Fabric navigation menu).
-        <p class="mt-2"><img src="/images/extracted/img_63510573.png" alt=""></p>
+        <p class="mt-2"><img src="/images/extracted/img_63510573.png" alt="" /></p>
     </li>
     
     <li>
         Search for <strong class="font-semibold text-docs-text-primary">“Karl”</strong>
-        <p class="mt-2"><img src="/images/extracted/img_0f22933d.png" alt=""></p>
+        <p class="mt-2"><img src="/images/extracted/img_0f22933d.png" alt="" /></p>
     </li>
     
     <li>
         Click&nbsp;<strong class="font-semibold text-docs-text-primary">Learn More</strong>&nbsp;to install the workload. You can add it either to a specific&nbsp;<strong class="font-semibold text-docs-text-primary">capacity</strong>&nbsp;or directly to a&nbsp;<strong class="font-semibold text-docs-text-primary">workspace</strong>&nbsp;where you intend to use it.
-        <p class="mt-2"><img src="/images/extracted/img_f6544d8c.png" alt=""></p>
+        <p class="mt-2"><img src="/images/extracted/img_f6544d8c.png" alt="" /></p>
     </li>
     
     <li>
         Click on <strong class="font-semibold text-docs-text-primary">Add.</strong>
-        <p class="mt-2"><img src="/images/extracted/img_5854f9ff.png" alt=""></p>
-        <p class="mt-2">
-            <img src="/images/extracted/img_6a8e90e1.png" alt="">
-            <img src="/images/extracted/img_e0aa4af7.png" alt="">
-            <img src="/images/extracted/img_e0aa4af7.png" alt="">
-        </p>
+        <p class="mt-2"><img src="/images/extracted/img_5854f9ff.png" alt="" /></p>
+
     </li>
 
 </ol>
