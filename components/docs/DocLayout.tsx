@@ -10,7 +10,7 @@ interface DocLayoutProps {
 
 export default function DocLayout({ children, toc }: DocLayoutProps) {
   return (
-    <div className="flex flex-col min-h-screen bg-docs-bg-page text-docs-text-primary selection:bg-blue-500/30 font-sans transition-colors duration-200">
+    <div className="docs-theme flex flex-col min-h-screen bg-docs-bg-page text-docs-text-primary selection:bg-blue-500/30 font-sans transition-colors duration-200">
       <div className="docs-nav-wrapper sticky top-0 h-[68px] z-50 bg-docs-header-bg backdrop-blur-xl border-b border-docs-header-border transition-colors duration-200">
         <Nav showDocsSearch={true} />
       </div>
