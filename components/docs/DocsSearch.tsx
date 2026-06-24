@@ -233,22 +233,22 @@ export default function DocsSearch() {
               <div className="p-4 sm:p-6 text-sm text-docs-text-secondary transition-colors duration-200">
                 <p className="mb-4 text-xs font-semibold tracking-wider uppercase text-docs-text-muted transition-colors duration-200">Quick Links</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <button onClick={() => { router.push('/docs/enablement-guide'); setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200">
+                  <Link href="/docs/enablement-guide" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block">
                     <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">Enablement Guide</span>
                     <span className="block text-xs transition-colors duration-200">Learn how to setup workload environments.</span>
-                  </button>
-                  <button onClick={() => { router.push('/docs/user-guide'); setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200">
+                  </Link>
+                  <Link href="/docs/user-guide" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block">
                     <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">User Guide</span>
                     <span className="block text-xs transition-colors duration-200">Complete lifecycle from trial to adoption.</span>
-                  </button>
-                  <button onClick={() => { router.push('/docs/security-document'); setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200">
+                  </Link>
+                  <Link href="/docs/security-document" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block">
                     <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">Security Overview</span>
                     <span className="block text-xs transition-colors duration-200">Compliance and infrastructure policies.</span>
-                  </button>
-                  <button onClick={() => { router.push('/docs/pricing'); setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200">
+                  </Link>
+                  <Link href="/docs/pricing" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block">
                     <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">Pricing Details</span>
                     <span className="block text-xs transition-colors duration-200">Information on credits and tiers.</span>
-                  </button>
+                  </Link>
                 </div>
               </div>
             )}

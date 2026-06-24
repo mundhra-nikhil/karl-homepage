@@ -1,6 +1,8 @@
 "use client";
 
 
+import { footerColumns, badgesLine1, badgesLine2, legalLinks } from "@/lib/data/footerData";
+
 /**
  * Footer — Replicates the Kanerika main footer structure exactly.
  */
@@ -109,61 +111,20 @@ export default function Footer() {
 
         {/* ── Navigation link columns ── */}
         <div className="footer-link-section">
-          {/* Services */}
-          <div className="footer-col">
-            <p className="footer-col-heading">Services</p>
-            <ul className="footer-col-links">
-              <li><a href="https://kanerika.com/services/ai/">AI Consulting</a></li>
-              <li><a href="https://kanerika.com/services/generative-ai/">Generative AI</a></li>
-              <li><a href="https://kanerika.com/services/agentic-ai/">Agentic AI</a></li>
-              <li><a href="https://kanerika.com/services/data-analytics/">Data Analytics</a></li>
-              <li><a href="https://kanerika.com/services/data-governance/">Data Governance</a></li>
-              <li><a href="https://kanerika.com/services/data-integration/">Data Integration</a></li>
-              <li><a href="https://kanerika.com/services/rpa/">Intelligent Automation</a></li>
-              <li><a href="https://kanerika.com/services/migration/">Migration</a></li>
-            </ul>
-          </div>
-
-          {/* Business Functions */}
-          <div className="footer-col">
-            <p className="footer-col-heading">Business Functions</p>
-            <ul className="footer-col-links">
-              <li><a href="https://kanerika.com/business-functions/sales/">Sales</a></li>
-              <li><a href="https://kanerika.com/business-functions/finance/">Finance</a></li>
-              <li><a href="https://kanerika.com/business-functions/supply-chain/">Supply Chain</a></li>
-              <li><a href="https://kanerika.com/business-functions/operations/">Operations</a></li>
-            </ul>
-          </div>
-
-          {/* Industries */}
-          <div className="footer-col">
-            <p className="footer-col-heading">Industries</p>
-            <ul className="footer-col-links">
-              <li><a href="https://kanerika.com/industries/bfsi/">BFSI</a></li>
-              <li><a href="https://kanerika.com/industries/logistics-and-supply-chain/">Logistics &amp; Supply Chain</a></li>
-              <li><a href="https://kanerika.com/industries/manufacturing/">Manufacturing</a></li>
-              <li><a href="https://kanerika.com/industries/retail-and-fmcg/">Retail &amp; FMCG</a></li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div className="footer-col">
-            <p className="footer-col-heading">Company</p>
-            <ul className="footer-col-links">
-              <li><a href="https://kanerika.com/careers/">Careers</a></li>
-              <li><a href="https://kanerika.com/partners/">Partners</a></li>
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div className="footer-col">
-            <p className="footer-col-heading" style={{ opacity: 0, userSelect: "none" }}>Company</p>
-            <ul className="footer-col-links">
-              <li><a href="https://kanerika.com/resources/blogs/">Blogs</a></li>
-              <li><a href="https://kanerika.com/resources/events-and-webinars/">Events &amp; Webinars</a></li>
-              <li><a href="https://kanerika.com/submit-guest-blog/">Submit Guest Blog</a></li>
-            </ul>
-          </div>
+          {footerColumns.map((col, idx) => (
+            <div key={idx} className="footer-col">
+              <p className="footer-col-heading" style={col.hiddenHeading ? { opacity: 0, userSelect: "none" } : undefined}>
+                {col.heading}
+              </p>
+              <ul className="footer-col-links">
+                {col.links.map((link) => (
+                  <li key={link.name}>
+                    <a href={link.url}>{link.name}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
         {/* ── Badge + bottom bar row ── */}
@@ -172,35 +133,21 @@ export default function Footer() {
           {/* Badge rows */}
           <div className="footer-badges-row">
             <div className="footer-badges-group">
-              <a href="https://www.goodfirms.co/company/kanerika-inc" target="_blank" rel="noopener noreferrer">
-                <img src="/images/footer/GoodsFirms.svg" alt="GoodsFirms" style={{ height: "42px", width: "auto" }} />
-              </a>
-              <a href="https://pars.cmmiinstitute.com/appraisals/71370" target="_blank" rel="noopener noreferrer">
-                <img src="/images/footer/CMMI.svg" alt="CMMI" style={{ height: "42px", width: "auto" }} />
-              </a>
-              <a href="https://clutch.co/profile/kanerika" target="_blank" rel="noopener noreferrer">
-                <img src="/images/footer/Clutch-Light.svg" alt="Clutch" style={{ height: "42px", width: "auto" }} />
-              </a>
-              <a href="https://www.capterra.in/software/1062440/flip" target="_blank" rel="noopener noreferrer">
-                <img src="/images/footer/Capterra-Light.svg" alt="Capterra" style={{ height: "42px", width: "auto" }} />
-              </a>
+              {badgesLine1.map((badge) => (
+                <a key={badge.name} href={badge.url} target="_blank" rel="noopener noreferrer">
+                  <img src={badge.image} alt={badge.name} style={{ height: badge.height, width: "auto" }} />
+                </a>
+              ))}
             </div>
 
             <div className="footer-badge-divider" />
 
             <div className="footer-badges-group">
-              <a href="https://www.glassdoor.co.in/Reviews/Kanerika-Software-Reviews-E1319224.htm" target="_blank" rel="noopener noreferrer">
-                <img src="/images/footer/Glassdoor-Logo.svg" alt="Glassdoor" style={{ height: "42px", width: "auto" }} />
-              </a>
-              <a href="https://www.g2.com/sellers/kanerika" target="_blank" rel="noopener noreferrer">
-                <img src="/images/footer/Asset-20-1.svg" alt="G2 badge" style={{ height: "52px", width: "auto" }} />
-              </a>
-              <a href="https://www.50pros.com/agency/kanerika?utm_source=widget&utm_medium=embed&utm_campaign=global-award" target="_blank" rel="noopener noreferrer">
-                <img src="/images/footer/50PROS.svg" alt="50PROS" style={{ height: "52px", width: "auto" }} />
-              </a>
-              <a href="https://www.greatplacetowork.in/great/company/kanerika-inc" target="_blank" rel="noopener noreferrer">
-                <img src="/images/footer/Great-Place-To-Work.svg" alt="Great Place To Work" style={{ height: "42px", width: "auto" }} />
-              </a>
+              {badgesLine2.map((badge) => (
+                <a key={badge.name} href={badge.url} target="_blank" rel="noopener noreferrer">
+                  <img src={badge.image} alt={badge.name} style={{ height: badge.height, width: "auto" }} />
+                </a>
+              ))}
             </div>
           </div>
 
@@ -208,10 +155,13 @@ export default function Footer() {
           <div className="footer-bottom-bar">
             <p className="footer-copyright">© 2026 Copyright. All rights reserved</p>
             <ul className="footer-legal-links">
-              <li><a href="/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
-              <li><a href="/dpa/" target="_blank" rel="noopener noreferrer">DPA</a></li>
-              <li><a href="https://kanerika.com/terms-and-conditions/" target="_blank" rel="noopener noreferrer">Terms and Conditions</a></li>
-              <li><a href="https://kanerika.com/sitemap_index.xml" target="_blank" rel="noopener noreferrer">Sitemap</a></li>
+              {legalLinks.map((link) => (
+                <li key={link.name}>
+                  <a href={link.url} target="_blank" rel="noopener noreferrer">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

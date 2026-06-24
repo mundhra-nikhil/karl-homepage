@@ -1,9 +1,10 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { industries } from "@/lib/data/industries";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 
 /**
  * Industries — scroll-driven horizontal carousel using GSAP ScrollTrigger.
@@ -18,7 +19,7 @@ export default function Industries() {
   const trackRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     let ctx: any;
     let windowLoadHandler: (() => void) | undefined;
     let active = true;
