@@ -4,6 +4,8 @@ import Nav from "@/components/ui/Nav";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 import Link from "next/link";
 
+const BASE_PATH="/karl-product-website";
+
 interface HeroProps {
   /** Whether the announcement bar is visible; used to compute the sticky offset. */
   showAnnouncement: boolean;
@@ -54,7 +56,7 @@ export default function Hero({ showAnnouncement, barRef }: HeroProps) {
       <div className="hero-sticky" ref={heroRef}>
         {/* @ts-expect-error fetchPriority is not yet supported in React video types */}
         <video id="bgvid" ref={bgVideoRef} autoPlay muted loop playsInline fetchPriority="high">
-          <source src="/full-bg-video.mp4" type="video/mp4" />
+          <source src={`${BASE_PATH}/full-bg-video.mp4`} type="video/mp4" />
         </video>
 
         <div id="overlay" />
