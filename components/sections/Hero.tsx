@@ -52,7 +52,8 @@ export default function Hero({ showAnnouncement, barRef }: HeroProps) {
   return (
     <div className="hero-stage" ref={heroStageRef}>
       <div className="hero-sticky" ref={heroRef}>
-        <video id="bgvid" ref={bgVideoRef} autoPlay muted loop playsInline>
+        {/* @ts-expect-error fetchPriority is not yet supported in React video types */}
+        <video id="bgvid" ref={bgVideoRef} autoPlay muted loop playsInline fetchPriority="high">
           <source src="/full-bg-video.mp4" type="video/mp4" />
         </video>
 

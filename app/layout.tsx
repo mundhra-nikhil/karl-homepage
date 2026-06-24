@@ -1,11 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -22,9 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="preload" as="video" href="/full-bg-video.mp4" type="video/mp4" />
+        <link rel="preload" as="video" href="/full-bg-video.mp4" type="video/mp4" fetchPriority="high" />
       </head>
-      <body className={`${inter.variable} elementor-kit-6 elementor-115036`}>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} elementor-kit-6 elementor-115036`}>
         <ThemeProvider attribute="class" defaultTheme="light">
           {children}
         </ThemeProvider>

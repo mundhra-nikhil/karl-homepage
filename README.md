@@ -32,12 +32,40 @@ npm start        # Run production server
 npm run lint     # Run ESLint
 ```
 
-## Makefile
+## Docker
+
+### Build and Run
 
 ```bash
-make install   # Install dependencies
-make dev       # Start dev server
-make build     # Build for production
+docker-compose up -d
+# or
+docker compose up -d
+```
+
+This builds the image, maps port 3000:3000, and runs the container in detached mode.
+
+### Stop Container
+
+```bash
+docker-compose down
+# or
+docker compose down
+```
+
+### Manual Docker Commands
+
+```bash
+# Build image
+docker build -t karl-homepage:latest .
+
+# Run container
+docker run -d -p 3000:3000 --name karl-homepage-app --restart unless-stopped karl-homepage:latest
+
+# Kill container (force stop)
+docker kill karl-homepage-app
+
+# Remove container
+docker rm karl-homepage-app
 ```
 
 ## Project Structure
