@@ -90,6 +90,13 @@ export default function DocsSearch() {
     }
   }, [isOpen]);
 
+  const quickLinks = [
+    { slug: "enablement-guide", title: "Enablement Guide", description: "Learn how to setup workload environments." },
+    { slug: "user-guide", title: "User Guide", description: "Complete lifecycle from trial to adoption." },
+    { slug: "security-document", title: "Security Overview", description: "Compliance and infrastructure policies." },
+    { slug: "pricing", title: "Pricing Details", description: "Information on credits and tiers." }
+  ];
+
   // Handle keyboard navigation within the dropdown
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Escape") {
@@ -98,17 +105,18 @@ export default function DocsSearch() {
       return;
     }
 
-    if (searchResults.length === 0) return;
+    const currentListLength = query.trim() ? searchResults.length : quickLinks.length;
+    if (currentListLength === 0) return;
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      setActiveIndex((prev) => (prev + 1) % searchResults.length);
+      setActiveIndex((prev) => (prev + 1) % currentListLength);
     } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      setActiveIndex((prev) => (prev - 1 + searchResults.length) % searchResults.length);
+      setActiveIndex((prev) => (prev - 1 + currentListLength) % currentListLength);
     } else if (e.key === "Enter") {
       e.preventDefault();
-      const selectedItem = searchResults[activeIndex];
+      const selectedItem = query.trim() ? searchResults[activeIndex] : quickLinks[activeIndex];
       if (selectedItem) {
         router.push(`/docs/${selectedItem.slug}`);
         setIsOpen(false);
@@ -233,22 +241,19 @@ export default function DocsSearch() {
               <div className="p-4 sm:p-6 text-sm text-docs-text-secondary transition-colors duration-200">
                 <p className="mb-4 text-xs font-semibold tracking-wider uppercase text-docs-text-muted transition-colors duration-200">Quick Links</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <Link href="/docs/enablement-guide" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block group">
-                    <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">Enablement Guide</span>
-                    <span className="block text-xs text-docs-text-secondary transition-colors duration-200">Learn how to setup workload environments.</span>
-                  </Link>
-                  <Link href="/docs/user-guide" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block group">
-                    <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">User Guide</span>
-                    <span className="block text-xs text-docs-text-secondary transition-colors duration-200">Complete lifecycle from trial to adoption.</span>
-                  </Link>
-                  <Link href="/docs/security-document" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block group">
-                    <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">Security Overview</span>
-                    <span className="block text-xs text-docs-text-secondary transition-colors duration-200">Compliance and infrastructure policies.</span>
-                  </Link>
-                  <Link href="/docs/pricing" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block group">
-                    <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">Pricing Details</span>
-                    <span className="block text-xs text-docs-text-secondary transition-colors duration-200">Information on credits and tiers.</span>
-                  </Link>
+                  {quickLinks.map((link, index) => (
+                    <Link
+                      key={link.slug}
+                      href={`/docs/${link.slug}`}
+                      onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }}
+                      className={`text-left px-3 py-2 rounded-lg transition-colors duration-200 block group ${
+                        index === activeIndex ? "bg-docs-active-link-bg" : "hover:bg-docs-active-link-bg/50"
+                      }`}
+                    >
+                      <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">{link.title}</span>
+                      <span className="block text-xs text-docs-text-secondary transition-colors duration-200">{link.description}</span>
+                    </Link>
+                  ))}
                 </div>
               </div>
             )}

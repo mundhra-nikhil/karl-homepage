@@ -63,8 +63,8 @@ export const badgesLine2 = [
 ];
 
 export const legalLinks = [
-  { name: "Privacy Policy", url: "/privacy-policy/" },
-  { name: "DPA", url: "/dpa/" },
+  { name: "Privacy Policy", url: "https://kanerika.com/privacy-policy/" },
+  { name: "DPA", url: "https://kanerika.com/dpa/" },
   { name: "Terms and Conditions", url: "https://kanerika.com/terms-and-conditions/" },
   { name: "Sitemap", url: "https://kanerika.com/sitemap_index.xml" },
 ];
