@@ -35,8 +35,6 @@ const VALID_SLUGS = [
   "retail",
 ];
 
-const BASE_PATH = "/karl-product-website";
-
 const getSectorImage = (slug: string): string => {
   const extensions: Record<string, string> = {
     automotive: "avif",
@@ -48,7 +46,7 @@ const getSectorImage = (slug: string): string => {
     pharma: "jpg",
     retail: "jpg",
   };
-  return `${BASE_PATH}/industries/${slug}.${extensions[slug] || "jpg"}`;
+  return `/industries/${slug}.${extensions[slug] || "jpg"}`;
 };
 
 interface SolutionsItem {
