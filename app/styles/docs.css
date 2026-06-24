@@ -364,7 +364,7 @@
   line-height: 1.5;
 }
 
-/* Header/Navigation Overrides for Karl Docs Pages */
+/* Header/Navigation Overrides for Karl Documentation Pages */
 .docs-theme .wordmark {
   color: var(--docs-text-primary);
   transition: color 0.2s;
@@ -453,7 +453,7 @@
   background: rgba(255, 255, 255, 0.9);
 }
 
-/* Dropdown Overrides for Karl Docs Pages */
+/* Dropdown Overrides for Karl Documentation Pages */
 .docs-theme .nav-dropdown-menu {
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid var(--docs-border-main);

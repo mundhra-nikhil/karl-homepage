@@ -25,7 +25,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${article.title} | Karl Docs`,
+    title: `${article.title} | Karl Documentation`,
     description: article.description,
   };
 }

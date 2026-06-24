@@ -48,7 +48,7 @@ export default function DocsPage() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-purple-500 to-blue-500 dark:from-rose-400 dark:via-purple-400 dark:to-blue-400">
                   Karl
                 </span>{" "}
-                Docs
+                Documentation
               </h1>
               <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl transition-colors duration-200">
                 Learn how to install, set up, configure, and use Karl products

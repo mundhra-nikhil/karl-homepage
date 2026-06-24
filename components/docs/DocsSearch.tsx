@@ -156,7 +156,7 @@ export default function DocsSearch() {
         <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[10vh] px-4 sm:px-6">
           {/* Backdrop */}
           <div 
-            className="fixed inset-0 bg-docs-text-primary/10 backdrop-blur-sm transition-opacity duration-200" 
+            className="fixed inset-0 bg-docs-text-primary/10 transition-opacity duration-200" 
             aria-hidden="true" 
           />
           
@@ -233,21 +233,21 @@ export default function DocsSearch() {
               <div className="p-4 sm:p-6 text-sm text-docs-text-secondary transition-colors duration-200">
                 <p className="mb-4 text-xs font-semibold tracking-wider uppercase text-docs-text-muted transition-colors duration-200">Quick Links</p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <Link href="/docs/enablement-guide" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block">
+                  <Link href="/docs/enablement-guide" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block group">
                     <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">Enablement Guide</span>
-                    <span className="block text-xs transition-colors duration-200">Learn how to setup workload environments.</span>
+                    <span className="block text-xs text-docs-text-secondary transition-colors duration-200">Learn how to setup workload environments.</span>
                   </Link>
-                  <Link href="/docs/user-guide" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block">
+                  <Link href="/docs/user-guide" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block group">
                     <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">User Guide</span>
-                    <span className="block text-xs transition-colors duration-200">Complete lifecycle from trial to adoption.</span>
+                    <span className="block text-xs text-docs-text-secondary transition-colors duration-200">Complete lifecycle from trial to adoption.</span>
                   </Link>
-                  <Link href="/docs/security-document" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block">
+                  <Link href="/docs/security-document" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block group">
                     <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">Security Overview</span>
-                    <span className="block text-xs transition-colors duration-200">Compliance and infrastructure policies.</span>
+                    <span className="block text-xs text-docs-text-secondary transition-colors duration-200">Compliance and infrastructure policies.</span>
                   </Link>
-                  <Link href="/docs/pricing" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block">
+                  <Link href="/docs/pricing" onClick={() => { setIsOpen(false); setTimeout(() => setQuery(""), 200); }} className="text-left px-3 py-2 rounded-lg hover:bg-docs-active-link-bg transition-colors duration-200 block group">
                     <span className="block text-docs-text-primary font-medium mb-0.5 transition-colors duration-200">Pricing Details</span>
-                    <span className="block text-xs transition-colors duration-200">Information on credits and tiers.</span>
+                    <span className="block text-xs text-docs-text-secondary transition-colors duration-200">Information on credits and tiers.</span>
                   </Link>
                 </div>
               </div>
