@@ -2,6 +2,7 @@
 import { useRef, useEffect, RefObject } from "react";
 import Nav from "@/components/ui/Nav";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
+import Link from "next/link";
 
 interface HeroProps {
   /** Whether the announcement bar is visible; used to compute the sticky offset. */
@@ -70,7 +71,9 @@ export default function Hero({ showAnnouncement, barRef }: HeroProps) {
             leader&apos;s hands, instantly. No analysts. No dashboards. Just
             answers, the moment you need them.
           </p>
-          <button className="hero-cta">Request a Demo</button>
+          <Link href="https://kanerika.com/contact-us/" target="_blank" rel="noopener noreferrer" className="hero-cta">
+            Request a Demo
+          </Link>
         </div>
 
         <div id="scroll-hint" ref={scrollHintRef}>

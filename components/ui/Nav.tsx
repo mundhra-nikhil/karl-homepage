@@ -57,7 +57,7 @@ export default function Nav({ showDocsSearch = false }: NavProps) {
           href="https://kanerika.com/contact-us/" 
           target="_blank" 
           rel="noopener noreferrer" 
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-[#8C48FF] to-[#FF5F3D] rounded-md hover:opacity-90 transition-opacity"
         >
           <span>Contact Us</span>
           <svg aria-hidden="true" className="w-4 h-4" fill="currentColor" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
