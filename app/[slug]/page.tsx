@@ -24,6 +24,8 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const BASE_PATH = "/karl-product-website";
+
 const VALID_SLUGS = [
   "automotive",
   "banking",
@@ -46,7 +48,7 @@ const getSectorImage = (slug: string): string => {
     pharma: "jpg",
     retail: "jpg",
   };
-  return `/industries/${slug}.${extensions[slug] || "jpg"}`;
+  return `${BASE_PATH}/industries/${slug}.${extensions[slug] || "jpg"}`;
 };
 
 interface SolutionsItem {

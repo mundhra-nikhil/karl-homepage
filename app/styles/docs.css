@@ -173,8 +173,8 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin: 2rem 0;
-  font-size: 0.95rem;
+  margin: 0;
+  font-size: var(--docs-font-size-base);
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--docs-table-border);
@@ -197,18 +197,20 @@
   border-right: none;
 }
 
-.docs-content th,
-.docs-content tr:first-child td {
+.docs-content th {
   background-color: var(--docs-table-th-bg);
   color: var(--docs-text-primary);
-  font-weight: 600;
+  font-weight: 300;
   border-bottom: 1px solid var(--docs-table-border);
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  text-align: left;
 }
 
 .docs-content td {
   color: var(--docs-text-secondary);
   background-color: transparent;
+  font-weight: 300;
+  line-height: var(--docs-line-height-base);
 }
 
 /* Make sure paragraphs inside tables don't break spacing */

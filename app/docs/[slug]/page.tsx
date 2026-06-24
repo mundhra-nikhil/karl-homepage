@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import DocArticle from "@/components/docs/DocArticle";
 import DocLayout from "@/components/docs/DocLayout";
 import ArticleTableOfContents from "@/components/docs/ArticleTableOfContents";
-import { getDocContent, processArticleHtml } from "@/lib/data/docs/content";
+import { getDocContent, extractHeadingsFromMdx } from "@/lib/data/docs/content";
 import { docSlugs, getDocArticle } from "@/lib/data/docs/manifest";
 
 interface DocPageProps {
@@ -39,11 +39,11 @@ export default async function DocPage({ params }: DocPageProps) {
     notFound();
   }
 
-  const { cleanHtml, headings } = processArticleHtml(content.html);
+  const headings = extractHeadingsFromMdx(content.mdx);
 
   return (
     <DocLayout toc={<ArticleTableOfContents headings={headings} />}>
-      <DocArticle html={cleanHtml} article={article} />
+      <DocArticle mdx={content.mdx} article={article} />
     </DocLayout>
   );
 }
