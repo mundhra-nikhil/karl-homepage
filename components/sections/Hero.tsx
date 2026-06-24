@@ -70,7 +70,7 @@ export default function Hero({ showAnnouncement, barRef }: HeroProps) {
             leader&apos;s hands, instantly. No analysts. No dashboards. Just
             answers, the moment you need them.
           </p>
-          <a href="#" className="hero-cta">Request a Demo</a>
+          <button className="hero-cta">Request a Demo</button>
         </div>
 
         <div id="scroll-hint" ref={scrollHintRef}>
