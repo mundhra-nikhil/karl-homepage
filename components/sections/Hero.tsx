@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useEffect, RefObject } from "react";
 import Nav from "@/components/ui/Nav";
-import { useScrollProgress } from "@/lib/useScrollProgress";
+import { useScrollProgress } from "@/hooks/useScrollProgress";
 
 interface HeroProps {
   /** Whether the announcement bar is visible; used to compute the sticky offset. */
