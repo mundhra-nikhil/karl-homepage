@@ -19,7 +19,7 @@ export default function DocsSidebar() {
 
           return (
             <div key={category.id}>
-              <h4 className="text-xs font-bold text-docs-text-primary uppercase tracking-widest mb-3 flex items-center gap-2 transition-colors duration-200">
+              <h4 className="text-xs font-semibold text-docs-text-primary uppercase tracking-widest mb-3 flex items-center gap-2 transition-colors duration-200">
                 <div className={`w-2 h-2 rounded-full shrink-0 ${styles.dot}`}></div>
                 {category.sidebarTitle}
               </h4>
