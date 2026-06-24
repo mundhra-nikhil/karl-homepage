@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy package files
 COPY package.json package-lock.json ./
 # Install dependencies (including devDependencies)
-RUN npm ci
+RUN npm ci --prefer-offline
 
 # Stage 2: Lint, Test, and Build the application
 FROM node:22-alpine AS builder
@@ -39,9 +39,6 @@ RUN adduser --system --uid 1001 nextjs
 
 # Copy assets and public files
 COPY --from=builder /app/public ./public
-
-# Set the correct permission for prerender cache
-RUN mkdir .next && chown nextjs:nodejs .next
 
 # Leverage standalone output for a much smaller image size
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./

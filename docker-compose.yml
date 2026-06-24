@@ -7,7 +7,9 @@ services:
     container_name: karl-homepage-app
     ports:
       - "3000:3000"
-    environment:
-      - PORT=3000
-      - NODE_ENV=production
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O - http://localhost:3000/ > /dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     restart: unless-stopped
