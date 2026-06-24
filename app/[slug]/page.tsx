@@ -24,7 +24,7 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const BASE_PATH = "/karl-product-website";
+const BASE_PATH = process.env.NODE_ENV === "production" ? "/karl-product-website" : "";
 
 const VALID_SLUGS = [
   "automotive",

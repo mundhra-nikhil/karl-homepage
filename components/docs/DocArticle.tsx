@@ -4,6 +4,9 @@ import { DocArticle as DocArticleType } from '@/lib/data/docs/manifest';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getHeadingIdGenerator } from '@/lib/data/docs/content';
 
+const BASE_PATH = process.env.NODE_ENV === "production" ? "/karl-product-website" : "";
+
+
 interface DocArticleProps {
   mdx: string;
   article: DocArticleType;
@@ -37,6 +40,12 @@ export default function DocArticle({ mdx, article }: DocArticleProps) {
     table: (props: any) => <div className="overflow-x-auto mb-8"><table {...props} /></div>,
     th: (props: any) => <th {...props} />,
     td: (props: any) => <td {...props} />,
+    img: ({ src, ...props }: any) => {
+      if (src && src.startsWith('/')) {
+        src = `${BASE_PATH}${src}`;
+      }
+      return <img src={src} {...props} />;
+    },
   };
 
   return (

@@ -4,7 +4,7 @@ import Nav from "@/components/ui/Nav";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
 import Link from "next/link";
 
-const BASE_PATH="/karl-product-website";
+const BASE_PATH = process.env.NODE_ENV === "production" ? "/karl-product-website" : "";
 
 interface HeroProps {
   /** Whether the announcement bar is visible; used to compute the sticky offset. */
