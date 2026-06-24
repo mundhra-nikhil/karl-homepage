@@ -1,0 +1,7 @@
+node_modules/
+.next/
+out/
+*.log
+.env*
+public/full-bg-video.mp4
+public/karl-demo.mp4
