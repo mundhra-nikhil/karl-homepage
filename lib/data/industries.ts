@@ -5,53 +5,55 @@ export interface Industry {
   image: string;
 }
 
+const BASE_PATH = "/karl-product-website";
+
 export const industries: Industry[] = [
   {
     id: "automotive",
     name: "Automotive",
     description: "Accelerate production, optimize operations, create smarter CX.",
-    image: "/industries/automotive.avif",
+    image: `${BASE_PATH}/industries/automotive.avif`,
   },
   {
     id: "banking",
     name: "Banking",
     description: "Transform operations seamlessly with secure & compliant analytics.",
-    image: "/industries/banking.jpg",
+    image: `${BASE_PATH}/industries/banking.jpg`,
   },
   {
     id: "healthcare",
     name: "Healthcare",
     description: "Modernize systems, automate workflows, make faster decisions.",
-    image: "/industries/healthcare.avif",
+    image: `${BASE_PATH}/industries/healthcare.avif`,
   },
   {
     id: "insurance",
     name: "Insurance",
     description: "Automate claims, enhance underwriting, personalize customer engagement.",
-    image: "/industries/insurance.jpg",
+    image: `${BASE_PATH}/industries/insurance.jpg`,
   },
   {
     id: "logistics",
     name: "Logistics & Supply Chain",
     description: "Modernize operations for faster decisions, better forecasting.",
-    image: "/industries/logistics.jpg",
+    image: `${BASE_PATH}/industries/logistics.jpg`,
   },
   {
     id: "manufacturing",
     name: "Manufacturing",
     description: "Boost production speed, reduce downtime, improve forecast accuracy.",
-    image: "/industries/manufacturing.jpg",
+    image: `${BASE_PATH}/industries/manufacturing.jpg`,
   },
   {
     id: "pharma",
     name: "Pharma",
     description: "Accelerate research, improve efficiency, deliver faster.",
-    image: "/industries/pharma.jpg",
+    image: `${BASE_PATH}/industries/pharma.jpg`,
   },
   {
     id: "retail",
     name: "Retail & FMCG",
     description: "Digitize operations, automate tasks, deliver stronger customer connections.",
-    image: "/industries/retail.jpg",
+    image: `${BASE_PATH}/industries/retail.jpg`,
   },
 ];

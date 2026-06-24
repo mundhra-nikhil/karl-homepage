@@ -215,7 +215,7 @@
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 8px 24px 20px;
+  padding: 24px 24px 40px; /* Increased top/bottom padding to prevent hover cutoff and shadow clipping */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE/Edge */
 }
