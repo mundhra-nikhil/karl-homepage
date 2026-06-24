@@ -4,7 +4,7 @@ import { DocArticle as DocArticleType } from '@/lib/data/docs/manifest';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getHeadingIdGenerator } from '@/lib/data/docs/content';
 
-const BASE_PATH = process.env.NODE_ENV === "production" ? "/karl-product-website" : "";
+const BASE_PATH = "/karl-product-website";
 
 
 interface DocArticleProps {

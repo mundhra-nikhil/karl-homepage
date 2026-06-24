@@ -3,6 +3,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import React from "react";
 import styles from "@/app/styles/VideoDemo.module.css";
 
+const BASE_PATH = "/karl-product-website";
 
 /* ─── Component ─────────────────────────────────────────────────────────── */
 import { chapters } from "@/lib/data/videoChapters";
@@ -253,7 +254,7 @@ export default function VideoDemo() {
               onSeeked={handleTimeUpdate}
               onTimeUpdate={handleTimeUpdate}
             >
-              <source src="/karl-demo.mp4" type="video/mp4" />
+              <source src={`${BASE_PATH}/karl-demo.mp4`} type="video/mp4" />
             </video>
           </div>
         </div>

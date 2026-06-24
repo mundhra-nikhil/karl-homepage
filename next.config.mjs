@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: process.env.NODE_ENV === "production" ? "/karl-product-website" : "",
+  basePath: "/karl-product-website",
   output: "standalone",
   images: {
     remotePatterns: [

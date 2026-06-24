@@ -24,8 +24,6 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const BASE_PATH = process.env.NODE_ENV === "production" ? "/karl-product-website" : "";
-
 const VALID_SLUGS = [
   "automotive",
   "banking",
@@ -36,6 +34,8 @@ const VALID_SLUGS = [
   "pharma",
   "retail",
 ];
+
+const BASE_PATH = "/karl-product-website";
 
 const getSectorImage = (slug: string): string => {
   const extensions: Record<string, string> = {

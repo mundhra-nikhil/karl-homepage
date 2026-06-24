@@ -3,6 +3,8 @@
 
 import { footerColumns, badgesLine1, badgesLine2, legalLinks } from "@/lib/data/footerData";
 
+const BASE_PATH = "/karl-product-website";
+
 /**
  * Footer — Replicates the Kanerika main footer structure exactly.
  */
@@ -17,7 +19,7 @@ export default function Footer() {
           {/* Logo */}
           <div className="footer-logo-wrap">
             <img
-              src="/images/footer/white-kanerika-Logo.svg"
+              src={`${BASE_PATH}/images/footer/white-kanerika-Logo.svg`}
               alt="Global Tech Consulting Firm | AI, Analytics and Automation | Kanerika"
               width={160}
               height={54}
@@ -135,7 +137,7 @@ export default function Footer() {
             <div className="footer-badges-group">
               {badgesLine1.map((badge) => (
                 <a key={badge.name} href={badge.url} target="_blank" rel="noopener noreferrer">
-                  <img src={badge.image} alt={badge.name} style={{ height: badge.height, width: "auto" }} />
+                  <img src={`${BASE_PATH}${badge.image}`} alt={badge.name} style={{ height: badge.height, width: "auto" }} />
                 </a>
               ))}
             </div>
@@ -145,7 +147,7 @@ export default function Footer() {
             <div className="footer-badges-group">
               {badgesLine2.map((badge) => (
                 <a key={badge.name} href={badge.url} target="_blank" rel="noopener noreferrer">
-                  <img src={badge.image} alt={badge.name} style={{ height: badge.height, width: "auto" }} />
+                  <img src={`${BASE_PATH}${badge.image}`} alt={badge.name} style={{ height: badge.height, width: "auto" }} />
                 </a>
               ))}
             </div>
