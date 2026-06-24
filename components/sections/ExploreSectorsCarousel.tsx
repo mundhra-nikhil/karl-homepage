@@ -102,9 +102,9 @@ export default function ExploreSectorsCarousel({
                 width="16"
                 height="16"
                 viewBox="0 0 24 24"
-                fill="none"
+                fill="black"
                 stroke="currentColor"
-                strokeWidth="2.5"
+                strokeWidth="1.5"
               >
                 <path
                   strokeLinecap="round"
