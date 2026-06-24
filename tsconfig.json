@@ -35,6 +35,9 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"
   ],
+  "types": [
+    "mocha"
+  ],
   "exclude": [
     "node_modules"
   ]
