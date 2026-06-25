@@ -2,6 +2,9 @@
 import { useRef, useEffect, RefObject } from "react";
 import Nav from "@/components/ui/Nav";
 import { useScrollProgress } from "@/hooks/useScrollProgress";
+import Link from "next/link";
+
+const BASE_PATH = "/karl-product-website";
 
 interface HeroProps {
   /** Whether the announcement bar is visible; used to compute the sticky offset. */
@@ -51,8 +54,9 @@ export default function Hero({ showAnnouncement, barRef }: HeroProps) {
   return (
     <div className="hero-stage" ref={heroStageRef}>
       <div className="hero-sticky" ref={heroRef}>
-        <video id="bgvid" ref={bgVideoRef} autoPlay muted loop playsInline>
-          <source src="/full-bg-video.mp4" type="video/mp4" />
+        {/* @ts-expect-error fetchPriority is not yet supported in React video types */}
+        <video id="bgvid" ref={bgVideoRef} autoPlay muted loop playsInline fetchPriority="high">
+          <source src={`${BASE_PATH}/full-bg-video.mp4`} type="video/mp4" />
         </video>
 
         <div id="overlay" />
@@ -70,7 +74,9 @@ export default function Hero({ showAnnouncement, barRef }: HeroProps) {
             leader&apos;s hands, instantly. No analysts. No dashboards. Just
             answers, the moment you need them.
           </p>
-          <a href="#" className="hero-cta">Request a Demo</a>
+          <Link href="https://kanerika.com/contact-us/" target="_blank" rel="noopener noreferrer" className="hero-cta">
+            Request a Demo
+          </Link>
         </div>
 
         <div id="scroll-hint" ref={scrollHintRef}>

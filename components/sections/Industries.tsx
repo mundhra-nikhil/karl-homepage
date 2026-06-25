@@ -1,111 +1,115 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { industries } from "@/lib/data/industries";
-import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 
 /**
- * Industries — scroll-driven horizontal carousel using GSAP ScrollTrigger.
- * Each card is informational only (not clickable).
- *
- * Layout:
- *  - Mobile:  horizontal snap-scroll carousel (peek at next card, native touch swipe)
- *  - Desktop: GSAP pinned scroll-linked horizontal slider
+ * Industries — auto-scrolling horizontal carousel.
+ * Features:
+ * - Auto-scrolls endlessly via requestAnimationFrame.
+ * - Pauses on hover or touch interactions.
+ * - Allows horizontal scrolling to override auto-scroll.
+ * - Vertical scroll passes through natively.
+ * - Only scrolls when visible on screen to save resources.
  */
 export default function Industries() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
-  const progressBarRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const scrollPos = useRef(0);
+  const animationRef = useRef<number | null>(null);
+  const isDraggingOrScrolling = useRef(false);
+  const initialized = useRef(false);
 
-  useIsomorphicLayoutEffect(() => {
-    let ctx: any;
-    let windowLoadHandler: (() => void) | undefined;
-    let active = true;
+  // Triple the items for a seamless infinite loop
+  // The first and last sets act as buffers so we can jump seamlessly
+  const loopedIndustries = [...industries, ...industries, ...industries];
 
-    const initGSAP = async () => {
-      // Dynamically import gsap and its ScrollTrigger plugin to prevent SSR issues
-      const { gsap } = await import("gsap");
-      const { ScrollTrigger } = await import("gsap/dist/ScrollTrigger");
+  // IntersectionObserver to detect when the section is visible
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { rootMargin: "100px" } // Start slightly before it fully enters the viewport
+    );
 
-      if (!active) return;
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
 
-      // Register ScrollTrigger inside the browser
-      gsap.registerPlugin(ScrollTrigger);
+    return () => observer.disconnect();
+  }, []);
 
-      // Measure after layout is final
-      requestAnimationFrame(() => {
-        const section = sectionRef.current;
-        const track = trackRef.current;
-        const progressBar = progressBarRef.current;
+  // Initialize the starting position exactly once
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || initialized.current) return;
 
-        if (!section || !track || !active) return;
-
-        // Wrap the animation setup in gsap.context() scoped to sectionRef
-        ctx = gsap.context(() => {
-          const mm = gsap.matchMedia();
-
-          // Pinned horizontal scroll for viewport sizes 768px and up (Desktop/Tablet)
-          mm.add("(min-width: 768px)", () => {
-            const getDistance = () => {
-              const container = track.parentElement;
-              if (!container) return 0;
-
-              const style = window.getComputedStyle(track);
-              const paddingRight = parseFloat(style.paddingRight) || 0;
-              const marginRight = parseFloat(style.marginRight) || 0;
-
-              // Calculate translation distance so the track ends flush with container client width
-              const distance = track.scrollWidth - container.clientWidth;
-              return Math.max(0, distance + paddingRight + marginRight);
-            };
-
-            gsap.to(track, {
-              x: () => -getDistance(),
-              ease: "none",
-              scrollTrigger: {
-                trigger: section,
-                pin: true,
-                scrub: 1,
-                start: "top top",
-                end: () => "+=" + getDistance(),
-                invalidateOnRefresh: true,
-                onUpdate: (self) => {
-                  if (progressBar) {
-                    progressBar.style.width = `${self.progress * 100}%`;
-                  }
-                },
-              },
-            });
-          });
-        }, sectionRef);
-      });
-
-      // Call ScrollTrigger.refresh() on the window load event so distances are correct after images load
-      windowLoadHandler = () => {
-        ScrollTrigger.refresh();
-      };
-
-      if (document.readyState === "complete") {
-        windowLoadHandler();
-      } else {
-        window.addEventListener("load", windowLoadHandler);
+    const initializePosition = () => {
+      if (track.scrollWidth > 0 && !initialized.current) {
+        // Approximate middle set start point
+        const singleSetWidth = track.scrollWidth / 3;
+        track.scrollLeft = singleSetWidth;
+        scrollPos.current = singleSetWidth;
+        initialized.current = true;
       }
     };
+    
+    initializePosition();
+    setTimeout(initializePosition, 100);
+  }, []);
 
-    initGSAP();
+  // Main animation loop
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || !isInView) return;
+
+    const scrollSpeed = 0.5; // pixels per frame
+
+    const loop = () => {
+      if (!isPaused && !isDraggingOrScrolling.current) {
+        scrollPos.current += scrollSpeed;
+        
+        const singleSetWidth = track.scrollWidth / 3;
+
+        // If we scroll past the end of the second set, jump back to the start of the second set
+        if (scrollPos.current >= singleSetWidth * 2) {
+          scrollPos.current -= singleSetWidth;
+        } 
+        // If the user scrolls backwards past the first set, jump to the end of the second set
+        else if (scrollPos.current <= 0) {
+          scrollPos.current += singleSetWidth;
+        }
+
+        track.scrollLeft = scrollPos.current;
+      } else {
+        // If paused or scrolling, sync the internal position with the actual user-driven scrollLeft
+        scrollPos.current = track.scrollLeft;
+        
+        const singleSetWidth = track.scrollWidth / 3;
+        // Also handle seamless wrapping when user is scrolling manually
+        if (track.scrollLeft >= singleSetWidth * 2) {
+          track.scrollLeft -= singleSetWidth;
+          scrollPos.current = track.scrollLeft;
+        } else if (track.scrollLeft <= 0) {
+          track.scrollLeft += singleSetWidth;
+          scrollPos.current = track.scrollLeft;
+        }
+      }
+
+      animationRef.current = requestAnimationFrame(loop);
+    };
+
+    animationRef.current = requestAnimationFrame(loop);
 
     return () => {
-      active = false;
-      if (ctx) {
-        ctx.revert();
-      }
-      if (windowLoadHandler) {
-        window.removeEventListener("load", windowLoadHandler);
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, []);
+  }, [isPaused, isInView]);
 
   return (
     <section ref={sectionRef} className="industries-section">
@@ -117,13 +121,42 @@ export default function Industries() {
         </div>
 
         {/* Viewport for horizontal track */}
-        <div className="industries-viewport">
-          <div ref={trackRef} className="industries-track">
-            {industries.map((industry) => (
+        <div 
+          className="industries-viewport"
+          ref={trackRef}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={() => {
+            setIsPaused(true);
+            isDraggingOrScrolling.current = true;
+          }}
+          onTouchEnd={() => {
+            setIsPaused(false);
+            isDraggingOrScrolling.current = false;
+          }}
+          onScroll={() => {
+            // Keep the internal position synced and detect native scroll actions
+            if (trackRef.current) {
+              scrollPos.current = trackRef.current.scrollLeft;
+            }
+          }}
+          onWheel={() => {
+            isDraggingOrScrolling.current = true;
+            // Debounce the wheel end
+            if ((window as any).scrollTimeout) {
+              clearTimeout((window as any).scrollTimeout);
+            }
+            (window as any).scrollTimeout = setTimeout(() => {
+              isDraggingOrScrolling.current = false;
+            }, 150);
+          }}
+        >
+          <div className="industries-track">
+            {loopedIndustries.map((industry, index) => (
               <Link
-                key={industry.id}
+                key={`${industry.id}-${index}`}
                 href={`/${industry.id}`}
-                className="industry-card cursor-pointer decoration-none"
+                className="industry-card cursor-pointer decoration-none shrink-0"
               >
                 {/* Image — 1:1 ratio, full-bleed */}
                 <div className="industry-card-image">
@@ -145,18 +178,6 @@ export default function Industries() {
               </Link>
             ))}
           </div>
-        </div>
-
-        {/* Progress Bar (Desktop only) */}
-        <div className="industries-progress-wrap">
-          <div ref={progressBarRef} className="industries-progress-bar" />
-        </div>
-
-        {/* Mobile scroll hint dots */}
-        <div className="industries-dots">
-          {industries.map((industry) => (
-            <span key={industry.id} />
-          ))}
         </div>
       </div>
     </section>
