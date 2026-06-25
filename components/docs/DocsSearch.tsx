@@ -105,18 +105,48 @@ export default function DocsSearch() {
       return;
     }
 
-    const currentListLength = query.trim() ? searchResults.length : quickLinks.length;
+    const isSearching = !!query.trim();
+    const currentListLength = isSearching ? searchResults.length : quickLinks.length;
     if (currentListLength === 0) return;
 
-    if (e.key === "ArrowDown") {
+    if (isSearching) {
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setActiveIndex((prev) => (prev + 1) % currentListLength);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setActiveIndex((prev) => (prev - 1 + currentListLength) % currentListLength);
+      }
+    } else {
+      // 2D grid navigation for Quick Links (2x2 layout)
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        setActiveIndex((prev) => (prev + 2) % 4);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setActiveIndex((prev) => (prev - 2 + 4) % 4);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setActiveIndex((prev) => {
+          const row = Math.floor(prev / 2);
+          const col = prev % 2;
+          const nextCol = (col + 1) % 2;
+          return row * 2 + nextCol;
+        });
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setActiveIndex((prev) => {
+          const row = Math.floor(prev / 2);
+          const col = prev % 2;
+          const nextCol = (col - 1 + 2) % 2;
+          return row * 2 + nextCol;
+        });
+      }
+    }
+
+    if (e.key === "Enter") {
       e.preventDefault();
-      setActiveIndex((prev) => (prev + 1) % currentListLength);
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setActiveIndex((prev) => (prev - 1 + currentListLength) % currentListLength);
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      const selectedItem = query.trim() ? searchResults[activeIndex] : quickLinks[activeIndex];
+      const selectedItem = isSearching ? searchResults[activeIndex] : quickLinks[activeIndex];
       if (selectedItem) {
         router.push(`/docs/${selectedItem.slug}`);
         setIsOpen(false);
@@ -139,7 +169,7 @@ export default function DocsSearch() {
       {/* Search Trigger Button */}
       <button 
         type="button"
-        className="flex items-center gap-2 px-[18px] py-[8px] bg-docs-active-link-bg/60 hover:bg-docs-active-link-bg border border-docs-border-main rounded-md transition-colors duration-200 group"
+        className="flex items-center gap-2 px-[18px] py-[8px] bg-docs-active-link-bg/60 hover:bg-docs-active-link-bg border border-docs-border-main rounded-md transition-colors duration-200 group cursor-pointer"
         onClick={() => {
           setIsOpen(true);
           setActiveIndex(0);

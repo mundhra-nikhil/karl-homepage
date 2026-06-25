@@ -130,28 +130,49 @@ function cleanHtmlForMigration(html) {
 }
 
 function migrate() {
-  const files = fs.readdirSync(docsContentDir).filter(f => f.endsWith('.json'));
+  const targetFileArg = process.argv[2];
+  let files = fs.readdirSync(docsContentDir).filter(f => f.endsWith('.json'));
+
+  if (targetFileArg) {
+    const baseName = path.basename(targetFileArg);
+    if (files.includes(baseName)) {
+      files = [baseName];
+      console.log(`Targeting single file for migration: ${baseName}`);
+    } else {
+      console.error(`Specified file not found in ${docsContentDir}: ${baseName}`);
+      return;
+    }
+  }
 
   for (const file of files) {
     const jsonPath = path.join(docsContentDir, file);
-    const content = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
-    
-    if (content && content.html) {
-      const cleanedHtml = cleanHtmlForMigration(content.html);
+    try {
+      const fileData = fs.readFileSync(jsonPath, 'utf8');
+      const content = JSON.parse(fileData);
       
-      // Convert HTML to Markdown
-      let markdown = turndownService.turndown(cleanedHtml);
-      
-      // Escape `<` that look like JSX tags or placeholders to prevent MDX parse errors
-      markdown = markdown.replace(/<(?=\s*[A-Z])/g, '\\<');
-      
-      // Save as .mdx
-      const mdxPath = jsonPath.replace('.json', '.mdx');
-      fs.writeFileSync(mdxPath, markdown, 'utf8');
-      
-      console.log(`Migrated ${file} -> ${path.basename(mdxPath)}`);
+      if (content && content.html) {
+        const cleanedHtml = cleanHtmlForMigration(content.html);
+        
+        // Convert HTML to Markdown
+        let markdown = turndownService.turndown(cleanedHtml);
+        
+        // Escape `<` that look like JSX tags or placeholders to prevent MDX parse errors
+        markdown = markdown.replace(/<(?=\s*[A-Z])/g, '\\<');
+
+        // Replace raw class=" with className=" to prevent JSX errors
+        markdown = markdown.replace(/\bclass="/g, 'className="');
+        
+        // Save as .mdx
+        const mdxPath = jsonPath.replace('.json', '.mdx');
+        fs.writeFileSync(mdxPath, markdown, 'utf8');
+        
+        console.log(`Migrated ${file} -> ${path.basename(mdxPath)}`);
+      }
+    } catch (err) {
+      console.error(`Error migrating file ${file}:`, err.message);
     }
   }
 }
 
 migrate();
+

@@ -51,6 +51,13 @@ export const docCategories: DocCategory[] = [
         description:
           "A comprehensive user guide outlining the complete lifecycle from trial access to full product adoption.",
       },
+      {
+        slug: "karl-userguide-connectorsetupdoc",
+        sidebarTitle: "User Guide & Connector Setup",
+        title: "Karl User Guide & Connector Setup",
+        description:
+          "Detailed guide on the Karl User Guide and configuring connector setups for your workloads.",
+      },
     ],
   },
   {
