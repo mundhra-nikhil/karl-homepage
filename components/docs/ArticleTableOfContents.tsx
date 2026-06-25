@@ -79,6 +79,7 @@ export default function ArticleTableOfContents({
         top: `${activeEl.offsetTop}px`,
         height: `${activeEl.offsetHeight}px`,
       });
+      activeEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
     }
   }, [activeId]);
 
@@ -87,7 +88,7 @@ export default function ArticleTableOfContents({
   }
 
   return (
-    <aside className="hidden xl:flex flex-col shrink-0 sticky top-[68px] h-[calc(100vh-68px)] w-[280px] bg-docs-bg-page overflow-y-auto scrollbar-hide transition-colors duration-200">
+    <aside className="hidden xl:flex flex-col shrink-0 sticky top-[68px] h-[calc(100vh-120px)] w-[280px] bg-docs-bg-page overflow-y-auto scrollbar-hide transition-colors duration-200">
       <div className="sticky top-0 z-50 bg-docs-bg-page px-6 pt-10 pb-4 transition-colors duration-200">
         <h4 className="text-xs font-semibold text-docs-text-primary uppercase tracking-widest transition-colors duration-200">
           On this page
