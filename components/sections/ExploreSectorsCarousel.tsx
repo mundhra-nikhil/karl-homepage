@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -19,46 +19,64 @@ interface ExploreSectorsCarouselProps {
 export default function ExploreSectorsCarousel({
   sectors,
 }: ExploreSectorsCarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(5); // Default for SSR
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setVisibleCount(2);
-      } else {
-        setVisibleCount(5);
-      }
+    const container = carouselRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+      // Use 1px tolerance for subpixel rounding issues
+      setCanScrollLeft(scrollLeft > 1);
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
     };
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    handleScroll(); // Initial check on mount
 
-  // Ensure index remains in bounds if screen is resized
-  useEffect(() => {
-    const maxIndex = sectors.length - visibleCount;
-    if (currentIndex > maxIndex) {
-      setCurrentIndex(Math.max(0, maxIndex));
-    }
-  }, [visibleCount, sectors.length, currentIndex]);
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [sectors]);
 
   const prev = () => {
-    setCurrentIndex((prev) => Math.max(0, prev - 1));
+    if (carouselRef.current) {
+      const firstCard = carouselRef.current.firstElementChild as HTMLElement;
+      const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : carouselRef.current.clientWidth / 5;
+      carouselRef.current.scrollBy({
+        left: -cardWidth,
+        behavior: "smooth",
+      });
+    }
   };
 
   const next = () => {
-    setCurrentIndex((prev) =>
-      Math.min(sectors.length - visibleCount, prev + 1)
-    );
+    if (carouselRef.current) {
+      const firstCard = carouselRef.current.firstElementChild as HTMLElement;
+      const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : carouselRef.current.clientWidth / 5;
+      carouselRef.current.scrollBy({
+        left: cardWidth,
+        behavior: "smooth",
+      });
+    }
   };
 
-  const isLeftDisabled = currentIndex === 0;
-  const isRightDisabled = currentIndex >= sectors.length - visibleCount;
+  const isLeftDisabled = !canScrollLeft;
+  const isRightDisabled = !canScrollRight;
 
   return (
     <section className="w-full py-20 border-b border-[#e7e5e4] bg-[#F7F6F2]">
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
       <div className="max-w-[1100px] mx-auto px-6">
         {/* Header with Title & controls */}
         <div className="flex justify-between items-center mb-8">
@@ -119,13 +137,12 @@ export default function ExploreSectorsCarousel({
         {/* Carousel Viewport Container */}
         <div className="overflow-hidden mx-[-8px]">
           <div
-            className="flex transition-transform duration-500 ease-in-out md:[transform:translateX(calc(-1*var(--current-index)*20%))]"
+            ref={carouselRef}
+            className="flex overflow-x-auto scroll-smooth no-scrollbar"
             style={{
-              transform: `translateX(calc(-1 * var(--current-index) * 50%))`,
-              ...({
-                "--current-index": currentIndex.toString(),
-              } as React.CSSProperties),
-            }}
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            } as React.CSSProperties}
           >
             {sectors.map((sector) => (
               <div
