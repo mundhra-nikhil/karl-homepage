@@ -18,7 +18,8 @@ const AnnouncementBar = forwardRef<HTMLDivElement, AnnouncementBarProps>(
       <div id="abar-wrap" ref={ref}>
         <div id="abar">
           Karl is now available on Microsoft Fabric Marketplace
-          <a href="https://marketplace.microsoft.com/ms-my/product/saas/kanerikainc1719422858450.karl-on-fabric?tab=overview" target="_blank" rel="noopener noreferrer">Learn more -&gt;</a>
+          <a href="https://marketplace.microsoft.com/en-us/product/saas/kanerikainc1719422858450.karl-on-fabric?tab=overview" target="_blank" rel="noopener noreferrer">Learn more -&gt;</a>
+
           <button
             className="aclose"
             type="button"

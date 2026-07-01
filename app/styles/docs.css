@@ -501,4 +501,29 @@
   font-weight: 700;
 }
 
+/* Mobile Menu overrides for Documentation Theme */
+.docs-theme .mobile-menu {
+  --mobile-menu-bg: var(--docs-header-bg, rgba(255, 255, 255, 0.95));
+  --mobile-menu-border: var(--docs-header-border, rgba(0, 0, 0, 0.08));
+  --mobile-link-color: var(--docs-text-secondary, rgba(0, 0, 0, 0.7));
+  --mobile-link-active: var(--docs-text-primary, #000000);
+  --mobile-link-title: var(--docs-text-muted, rgba(0, 0, 0, 0.4));
+  --mobile-sublink-color: var(--docs-text-secondary, rgba(0, 0, 0, 0.6));
+  --mobile-sublink-active: var(--docs-text-primary, #000000);
+  --hamburger-color: var(--docs-text-primary, #000000);
+}
+
+.dark .docs-theme .mobile-menu,
+.docs-theme.dark .mobile-menu {
+  --mobile-menu-bg: rgba(18, 18, 20, 0.95);
+  --mobile-menu-border: rgba(255, 255, 255, 0.08);
+  --mobile-link-color: rgba(255, 255, 255, 0.7);
+  --mobile-link-active: #ffffff;
+  --mobile-link-title: rgba(255, 255, 255, 0.4);
+  --mobile-sublink-color: rgba(255, 255, 255, 0.6);
+  --mobile-sublink-active: #ffffff;
+  --hamburger-color: #ffffff;
+}
+
+
 

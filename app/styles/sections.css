@@ -429,10 +429,6 @@
 }
 
 @media (max-width: 1024px) {
-  .nav-links {
-    display: none;
-  }
-
   .video-section {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -449,8 +445,12 @@
     padding: 0 20px;
   }
 
-  .nav-right {
+  .nav-links {
     display: none;
+  }
+
+  .nav-cta-desktop {
+    display: none !important;
   }
 
   #hero-content {

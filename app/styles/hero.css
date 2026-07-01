@@ -475,3 +475,175 @@ nav {
 .elementor-kit-6 button.theme-toggle-btn:hover {
   color: var(--docs-text-primary) !important;
 }
+
+/* Mobile Hamburger Menu & Dropdown Styles */
+.hamburger-button {
+  display: none;
+}
+
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hamburger-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20px;
+    height: 14px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 101;
+    margin-left: 12px;
+  }
+
+  .hamburger-bar {
+    width: 100%;
+    height: 2px;
+    background-color: var(--hamburger-color, #ffffff);
+    border-radius: 2px;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Hamburger animations when open */
+  .hamburger-bar.open:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .hamburger-bar.open:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger-bar.open:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* Mobile menu panel */
+  .mobile-menu {
+    display: flex;
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    background: var(--mobile-menu-bg, rgba(10, 10, 10, 0.96));
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--mobile-menu-border, rgba(255, 255, 255, 0.08));
+    padding: 28px 24px 32px 24px;
+    flex-direction: column;
+    gap: 28px;
+    z-index: 99;
+    transform: translateY(-10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.25s;
+  }
+
+  .mobile-menu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Navigation Link List */
+  .mobile-nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-nav-links a {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--mobile-link-color, rgba(255, 255, 255, 0.8));
+    text-decoration: none;
+    display: block;
+    padding: 6px 0;
+    transition: color 0.15s;
+  }
+
+  .mobile-nav-links a:hover,
+  .mobile-nav-links a.active {
+    color: var(--mobile-link-active, #ffffff);
+    font-weight: 700;
+  }
+
+  /* Resources Submenu Wrapper */
+  .mobile-dropdown-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mobile-dropdown-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--mobile-link-title, rgba(255, 255, 255, 0.4));
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 4px 0;
+  }
+
+  .mobile-submenu {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 16px;
+    border-left: 1px solid var(--mobile-menu-border, rgba(255, 255, 255, 0.08));
+  }
+
+  .mobile-submenu a {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--mobile-sublink-color, rgba(255, 255, 255, 0.7));
+    padding: 4px 0;
+  }
+
+  .mobile-submenu a:hover,
+  .mobile-submenu a.active {
+    color: var(--mobile-sublink-active, #ffffff);
+  }
+
+  /* CTA Button inside Mobile Menu */
+  .mobile-nav-cta {
+    border-top: 1px solid var(--mobile-menu-border, rgba(255, 255, 255, 0.08));
+    padding-top: 24px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-menu.open .mobile-nav-cta {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.15s;
+  }
+
+  /* Stagger animation for link items */
+  .mobile-nav-links > li {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-menu.open .mobile-nav-links > li {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobile-menu.open .mobile-nav-links > li:nth-child(1) {
+    transition-delay: 0.05s;
+  }
+
+  .mobile-menu.open .mobile-nav-links > li:nth-child(2) {
+    transition-delay: 0.1s;
+  }
+}
+
